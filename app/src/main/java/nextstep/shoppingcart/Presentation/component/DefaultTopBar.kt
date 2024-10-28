@@ -47,7 +47,10 @@ fun DefaultTopBar(
             )
             actionIconRes?.let { iconRes ->
                 DefaultIconButton(
-                    modifier = Modifier.align(Alignment.CenterEnd).size(24.dp),
+                    modifier =
+                        Modifier
+                            .align(Alignment.CenterEnd)
+                            .size(48.dp),
                     iconRes = iconRes,
                     tint = Color.Black,
                     onClick = onAction ?: {},
