@@ -10,6 +10,7 @@
 
     <!--장바구니-->
     <string name="shopping_cart_title">장바구니</string>
+    <string name="order_title">주문하기(%s)</string>
 
 
     <!--공통-->
