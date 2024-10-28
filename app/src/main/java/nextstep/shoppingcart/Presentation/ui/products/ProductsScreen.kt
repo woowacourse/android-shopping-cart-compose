@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.Presentation.ui.shopping
+package nextstep.shoppingcart.Presentation.ui.products
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
