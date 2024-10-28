@@ -15,6 +15,9 @@ class ProductDetailActivity : ComponentActivity() {
 
         setContent {
             ShoppingCartTheme {
+                ProductDetailScreen(
+                    id = productId,
+                    onBack = ::finish,
                 )
             }
         }

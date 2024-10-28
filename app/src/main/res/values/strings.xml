@@ -4,6 +4,10 @@
     <!--상품 목록-->
     <string name="shopping_title">상품 목록</string>
 
+    <!--상품 상세-->
+    <string name="product_detail_title">상품 상세</string>
+    <string name="price">금액</string>
+
     <!--공통-->
     <string name="price_format_kor"> %,d원</string>
 
