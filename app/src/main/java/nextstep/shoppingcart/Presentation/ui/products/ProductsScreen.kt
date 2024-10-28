@@ -1,5 +1,6 @@
 package nextstep.shoppingcart.Presentation.ui.products
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,12 +26,12 @@ import coil3.compose.AsyncImage
 import nextstep.shoppingcart.Presentation.common.currency
 import nextstep.shoppingcart.Presentation.component.DefaultTopBar
 import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
+import nextstep.shoppingcart.data.ProductRepository
 import nextstep.shoppingcart.domain.Product
-import nextstep.shoppingcart.domain.Product.Companion.dummyProducts
 import nextstep.signup.R
 
 @Composable
-fun ProductsScreen() {
+fun ProductsScreen(navigateToProductDetail: (id: Long) -> Unit) {
     Scaffold(
         topBar = {
             DefaultTopBar(
@@ -42,6 +43,7 @@ fun ProductsScreen() {
         ProductContent(
             products = ProductRepository.getProducts(),
             modifier = Modifier.padding(paddingValues = paddingValues),
+            navigateToProductDetail = navigateToProductDetail,
         )
     }
 }
@@ -50,6 +52,7 @@ fun ProductsScreen() {
 private fun ProductContent(
     products: List<Product>,
     modifier: Modifier = Modifier,
+    navigateToProductDetail: (id: Long) -> Unit,
 ) {
     val gridState = rememberLazyGridState()
 
@@ -65,16 +68,22 @@ private fun ProductContent(
             items = products,
             key = { product -> product.id },
         ) { product ->
-            ProductItem(product = product)
+            ProductItem(product = product, navigateToProductDetail = navigateToProductDetail)
         }
     }
 }
 
 @Composable
-private fun ProductItem(product: Product) {
+private fun ProductItem(
+    product: Product,
+    navigateToProductDetail: (id: Long) -> Unit,
+) {
     val context = LocalContext.current
 
-    Column {
+    Column(
+        modifier =
+            Modifier.clickable { navigateToProductDetail(product.id) },
+    ) {
         AsyncImage(
             modifier =
                 Modifier
@@ -92,8 +101,8 @@ private fun ProductItem(product: Product) {
 
 @Preview
 @Composable
-private fun ProductItemPreview() {
+private fun ProductsScreenPreview() {
     ShoppingCartTheme {
-        ProductsScreen()
+        ProductsScreen(navigateToProductDetail = {})
     }
 }
