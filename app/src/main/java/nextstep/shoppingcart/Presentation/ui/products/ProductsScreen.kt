@@ -40,7 +40,7 @@ fun ProductsScreen() {
         },
     ) { paddingValues ->
         ProductContent(
-            products = dummyProducts,
+            products = ProductRepository.getProducts(),
             modifier = Modifier.padding(paddingValues = paddingValues),
         )
     }
