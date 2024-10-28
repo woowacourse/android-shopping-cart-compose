@@ -31,12 +31,16 @@ import nextstep.shoppingcart.domain.Product
 import nextstep.signup.R
 
 @Composable
-fun ProductsScreen(navigateToProductDetail: (id: Long) -> Unit) {
+fun ProductsScreen(
+    navigateToShoppingCart: () -> Unit,
+    navigateToProductDetail: (id: Long) -> Unit,
+) {
     Scaffold(
         topBar = {
             DefaultTopBar(
                 title = stringResource(id = R.string.shopping_title),
                 actionIconRes = R.drawable.ic_shopping_cart,
+                onAction = navigateToShoppingCart,
             )
         },
     ) { paddingValues ->
@@ -103,6 +107,6 @@ private fun ProductItem(
 @Composable
 private fun ProductsScreenPreview() {
     ShoppingCartTheme {
-        ProductsScreen(navigateToProductDetail = {})
+        ProductsScreen(navigateToProductDetail = {}, navigateToShoppingCart = {})
     }
 }

@@ -25,7 +25,7 @@ fun DefaultTopBar(
     title: String,
     modifier: Modifier = Modifier,
     @DrawableRes actionIconRes: Int? = null,
-    onAction: (() -> Unit)? = null,
+    onAction: (() -> Unit) = {},
 ) {
     Surface(
         modifier =
@@ -53,7 +53,7 @@ fun DefaultTopBar(
                             .size(48.dp),
                     iconRes = iconRes,
                     tint = Color.Black,
-                    onClick = onAction ?: {},
+                    onClick = onAction,
                 )
             }
         }

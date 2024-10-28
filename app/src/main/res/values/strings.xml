@@ -8,6 +8,10 @@
     <string name="product_detail_title">상품 상세</string>
     <string name="price">금액</string>
 
+    <!--장바구니-->
+    <string name="shopping_cart_title">장바구니</string>
+
+
     <!--공통-->
     <string name="price_format_kor"> %,d원</string>
 
