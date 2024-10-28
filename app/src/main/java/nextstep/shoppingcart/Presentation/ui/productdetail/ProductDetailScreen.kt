@@ -32,8 +32,8 @@ import nextstep.shoppingcart.Presentation.common.currency
 import nextstep.shoppingcart.Presentation.component.BackButtonTopBar
 import nextstep.shoppingcart.Presentation.ui.theme.Blue50
 import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
-import nextstep.shoppingcart.data.ProductRepository
-import nextstep.shoppingcart.domain.Product
+import nextstep.shoppingcart.data.model.Product
+import nextstep.shoppingcart.data.repository.ProductRepository
 import nextstep.signup.R
 
 @Composable

@@ -26,8 +26,8 @@ import coil3.compose.AsyncImage
 import nextstep.shoppingcart.Presentation.common.currency
 import nextstep.shoppingcart.Presentation.component.DefaultTopBar
 import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
-import nextstep.shoppingcart.data.ProductRepository
-import nextstep.shoppingcart.domain.Product
+import nextstep.shoppingcart.data.model.Product
+import nextstep.shoppingcart.data.repository.ProductRepository
 import nextstep.signup.R
 
 @Composable
