@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,20 +39,32 @@ fun ProductsScreen() {
             )
         },
     ) { paddingValues ->
-        ProductContent(modifier = Modifier.padding(paddingValues = paddingValues))
+        ProductContent(
+            products = dummyProducts,
+            modifier = Modifier.padding(paddingValues = paddingValues),
+        )
     }
 }
 
 @Composable
-private fun ProductContent(modifier: Modifier = Modifier) {
+private fun ProductContent(
+    products: List<Product>,
+    modifier: Modifier = Modifier,
+) {
+    val gridState = rememberLazyGridState()
+
     LazyVerticalGrid(
+        state = gridState,
         columns = GridCells.Fixed(2),
         modifier = modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(all = 18.dp),
     ) {
-        items(dummyProducts) { product ->
+        items(
+            items = products,
+            key = { product -> product.id },
+        ) { product ->
             ProductItem(product = product)
         }
     }
