@@ -8,10 +8,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import nextstep.shoppingcart.ui.productdetail.ProductDetailScreen
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 
-class CartActivity:ComponentActivity() {
+class CartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,18 +22,17 @@ class CartActivity:ComponentActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context):Intent = Intent(context, CartActivity::class.java)
+        fun newIntent(context: Context): Intent = Intent(context, CartActivity::class.java)
     }
 }
 
 @Composable
 fun CartScreen() {
-
 }
 
 @Preview(
     showBackground = true,
-    showSystemUi = true
+    showSystemUi = true,
 )
 @Composable
 private fun CartScreenPreview() {

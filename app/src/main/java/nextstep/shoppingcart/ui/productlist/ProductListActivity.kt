@@ -30,7 +30,6 @@ class ProductListActivity : ComponentActivity() {
 
 @Composable
 fun ProductListScreen() {
-
     val context = LocalContext.current
 
     Scaffold(
@@ -38,7 +37,7 @@ fun ProductListScreen() {
             ProductListTopBar(
                 onCartClick = {
                     context.startActivity(CartActivity.newIntent(context))
-                }
+                },
             )
         },
         modifier = Modifier.fillMaxSize(),

@@ -27,7 +27,7 @@ fun ProductList(
             items = products,
             key = { product ->
                 product.id
-            }
+            },
         ) { item ->
             ProductListItem(item, onItemClick)
         }

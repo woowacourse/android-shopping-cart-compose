@@ -10,30 +10,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import nextstep.shoppingcart.domain.Product
 import nextstep.shoppingcart.domain.ProductRepository
 import nextstep.shoppingcart.ui.component.SubmitButton
 import nextstep.shoppingcart.ui.productdetail.ProductDetailActivity.Companion.EXTRA_PRODUCT_ID
 import nextstep.shoppingcart.ui.productdetail.ProductDetailActivity.Companion.INVALID_PRODUCT_ID
-import nextstep.shoppingcart.ui.theme.Blue50
-import nextstep.shoppingcart.ui.theme.Gray10
-import nextstep.shoppingcart.ui.theme.Gray50
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
-import nextstep.shoppingcart.ui.theme.Typography
 import nextstep.shoppingcart.ui.util.findActivity
-import nextstep.signup.R
 
 class ProductDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,12 +53,13 @@ class ProductDetailActivity : ComponentActivity() {
 fun ProductDetailScreen() {
     val activity = LocalContext.current.findActivity()
 
-    val product: Product = ProductRepository.productById(
-        activity.intent.getLongExtra(
-            EXTRA_PRODUCT_ID,
-            INVALID_PRODUCT_ID
+    val product: Product =
+        ProductRepository.productById(
+            activity.intent.getLongExtra(
+                EXTRA_PRODUCT_ID,
+                INVALID_PRODUCT_ID,
+            ),
         )
-    )
 
     Scaffold(
         topBar = {
@@ -77,23 +67,24 @@ fun ProductDetailScreen() {
                 activity.finish()
             }
         },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
 
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
         ) {
-
             ProductDetailContent(
-                product
+                product,
             )
 
             SubmitButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter),
             )
         }
     }
@@ -101,7 +92,7 @@ fun ProductDetailScreen() {
 
 @Preview(
     showBackground = true,
-    showSystemUi = true
+    showSystemUi = true,
 )
 @Composable
 private fun ProductDetailScreenPreview() {

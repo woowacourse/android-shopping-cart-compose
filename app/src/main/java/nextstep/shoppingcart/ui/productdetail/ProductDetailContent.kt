@@ -26,37 +26,38 @@ import nextstep.signup.R
 @Composable
 fun ProductDetailContent(
     product: Product,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
     Column(
-        modifier = modifier
-            .fillMaxWidth()
+        modifier =
+            modifier
+                .fillMaxWidth(),
     ) {
         AsyncImage(
             model = product.imageUrl,
             contentDescription = stringResource(R.string.product_detail_image_desc),
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
         )
 
         Text(
             text = product.name,
             color = Gray20,
             modifier = Modifier.padding(18.dp),
-            style = Typography.titleLarge
+            style = Typography.titleLarge,
         )
 
         HorizontalDivider(
             thickness = 1.dp,
-            color = Gray10
+            color = Gray10,
         )
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 text = stringResource(R.string.product_detail_price),
@@ -68,21 +69,20 @@ fun ProductDetailContent(
                 text = stringResource(R.string.product_price_format, product.price),
                 color = Gray20,
                 style = Typography.bodyMedium,
-                modifier = Modifier.padding(18.dp)
+                modifier = Modifier.padding(18.dp),
             )
         }
     }
-
 }
 
 @Preview(
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun ProductDetailContentPreview() {
     ShoppingCartTheme {
         ProductDetailContent(
-            ProductRepository.dummy.first()
+            ProductRepository.dummy.first(),
         )
     }
 }
