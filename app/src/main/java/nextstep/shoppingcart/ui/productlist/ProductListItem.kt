@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
 import nextstep.shoppingcart.domain.Product
+import nextstep.shoppingcart.domain.ProductRepository
 import nextstep.shoppingcart.ui.theme.Typography
 import nextstep.signup.R
 
@@ -58,5 +59,5 @@ fun ProductListItem(
 @Preview(showBackground = true)
 @Composable
 private fun ProductListItemPreview() {
-    ProductListItem(Product.dummy().first(), {})
+    ProductListItem(ProductRepository.dummy.first(), {})
 }

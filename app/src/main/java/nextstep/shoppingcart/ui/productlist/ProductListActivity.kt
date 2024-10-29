@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import nextstep.shoppingcart.domain.ProductRepository
 import nextstep.shoppingcart.ui.productdetail.ProductDetailActivity
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 
@@ -38,6 +39,7 @@ fun ProductListScreen() {
         val context = LocalContext.current
 
         ProductList(
+            products = ProductRepository.dummy,
             onItemClick = { product ->
                 context.startActivity(ProductDetailActivity.newIntent(context, product.id))
             },
