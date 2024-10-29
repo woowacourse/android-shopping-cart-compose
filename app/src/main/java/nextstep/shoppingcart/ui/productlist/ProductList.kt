@@ -12,6 +12,7 @@ import nextstep.shoppingcart.domain.Product
 
 @Composable
 fun ProductList(
+    products: List<Product>,
     onItemClick: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -22,7 +23,12 @@ fun ProductList(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = PaddingValues(18.dp),
     ) {
-        items(Product.dummy()) { item ->
+        items(
+            items = products,
+            key = { product ->
+                product.id
+            }
+        ) { item ->
             ProductListItem(item, onItemClick)
         }
     }
