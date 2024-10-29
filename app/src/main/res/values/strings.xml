@@ -5,4 +5,10 @@
     <string name="product_price_format">%,d원</string>
     <string name="product_list_cart_button_desc">장바구니 버튼</string>
     <string name="product_list_image_desc">$s 상품 이미지</string>
+
+    <string name="product_detail_title">상품 상세</string>
+    <string name="product_detail_image_desc">상품 상세 이미지</string>
+    <string name="product_detail_back_button_desc">뒤로가기 버튼</string>
+    <string name="product_detail_price">금액</string>
+    <string name="product_detail_cart_button">장바구니 담기</string>
 </resources>
