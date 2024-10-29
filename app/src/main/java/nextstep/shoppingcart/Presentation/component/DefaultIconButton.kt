@@ -12,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 fun DefaultIconButton(
     tint: Color,
     modifier: Modifier = Modifier,
+    contentDescription: String? = null,
     @DrawableRes iconRes: Int,
     onClick: () -> Unit,
 ) {
@@ -21,7 +22,7 @@ fun DefaultIconButton(
     ) {
         Icon(
             painter = painterResource(id = iconRes),
-            contentDescription = null,
+            contentDescription = contentDescription,
             tint = tint,
         )
     }

@@ -18,8 +18,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
@@ -48,6 +46,7 @@ import nextstep.shoppingcart.data.repository.ProductRepository
 import nextstep.shoppingcart.presentation.common.currency
 import nextstep.shoppingcart.presentation.component.BackButtonTopBar
 import nextstep.shoppingcart.presentation.component.CartItemCounter
+import nextstep.shoppingcart.presentation.component.DefaultIconButton
 import nextstep.shoppingcart.presentation.component.DefaultTextButton
 import nextstep.shoppingcart.presentation.ui.theme.Blue50
 import nextstep.shoppingcart.presentation.ui.theme.Gray10
@@ -187,14 +186,12 @@ private fun ShoppingCartItemContent(
                 fontWeight = FontWeight.Bold,
             )
 
-            IconButton(
+            DefaultIconButton(
+                iconRes = R.drawable.ic_close,
+                tint = Color.Black,
+                contentDescription = stringResource(R.string.close),
                 onClick = { action(ShoppingCartAction.OnItemRemove(cartItem.product)) },
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_close),
-                    contentDescription = stringResource(R.string.close),
-                )
-            }
+            )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
