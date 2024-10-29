@@ -82,7 +82,7 @@ fun ShoppingCartScreen(onBack: () -> Unit) {
 }
 
 @Composable
-fun ShoppingCartContent(
+private fun ShoppingCartContent(
     cartItems: List<CartItem>,
     modifier: Modifier = Modifier,
     action: (ShoppingCartAction) -> Unit,
@@ -193,7 +193,7 @@ private fun ShoppingCartItemContent(
                         .size(24.dp)
                         .clickable { action(ShoppingCartAction.OnItemRemove(cartItem.product)) },
                 painter = painterResource(R.drawable.ic_close),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.close),
             )
         }
 

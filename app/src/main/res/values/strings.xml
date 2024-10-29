@@ -13,6 +13,7 @@
     <string name="order_title">주문하기(%s)</string>
     <string name="increment">수량 추가</string>
     <string name="decremented">수량 감소</string>
+    <string name="close">상품 제거</string>
 
 
     <!--공통-->
