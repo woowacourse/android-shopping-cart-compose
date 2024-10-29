@@ -1,11 +1,12 @@
 package nextstep.shoppingcart.presentation.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -21,25 +22,36 @@ import nextstep.signup.R
 @Composable
 fun CartItemCounter(
     cartItem: CartItem,
+    modifier: Modifier = Modifier,
     onItemIncremented: (Product) -> Unit,
     onItemDecremented: (Product) -> Unit,
 ) {
-    Row {
-        Icon(
-            painter = painterResource(R.drawable.ic_remove),
-            contentDescription = stringResource(R.string.decremented),
-            modifier = Modifier.clickable { onItemDecremented(cartItem.product) },
-        )
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        IconButton(
+            onClick = { onItemDecremented(cartItem.product) },
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_remove),
+                contentDescription = stringResource(R.string.decremented),
+            )
+        }
+
         Text(
             modifier = Modifier.padding(horizontal = 15.dp),
             text = cartItem.count.toString(),
             fontSize = 22.sp,
         )
-        Icon(
-            painter = painterResource(R.drawable.ic_add),
-            contentDescription = stringResource(R.string.increment),
-            modifier = Modifier.clickable { onItemIncremented(cartItem.product) },
-        )
+        IconButton(
+            onClick = { onItemIncremented(cartItem.product) },
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_add),
+                contentDescription = stringResource(R.string.increment),
+            )
+        }
     }
 }
 
@@ -49,6 +61,6 @@ private fun CartItemCounterPreview() {
     val product = ProductRepository.getProducts().first()
     val cartItem = CartItem(product, 0)
     ShoppingCartTheme {
-        CartItemCounter(cartItem, {}, {})
+        CartItemCounter(cartItem, Modifier, {}, {})
     }
 }

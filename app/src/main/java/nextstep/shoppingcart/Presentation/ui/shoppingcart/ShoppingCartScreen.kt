@@ -1,7 +1,6 @@
 package nextstep.shoppingcart.presentation.ui.shoppingcart
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,14 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
@@ -154,7 +154,7 @@ private fun ShoppingCartItem(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .height(150.dp)
+                .wrapContentHeight()
                 .padding(bottom = 16.dp),
     ) {
         ShoppingCartItemContent(
@@ -174,12 +174,12 @@ private fun ShoppingCartItemContent(
     Column(
         modifier =
             Modifier
-                .fillMaxSize()
-                .padding(all = 18.dp),
+                .padding(start = 18.dp, bottom = 18.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = cartItem.product.name,
@@ -187,14 +187,14 @@ private fun ShoppingCartItemContent(
                 fontWeight = FontWeight.Bold,
             )
 
-            Icon(
-                modifier =
-                    Modifier
-                        .size(24.dp)
-                        .clickable { action(ShoppingCartAction.OnItemRemove(cartItem.product)) },
-                painter = painterResource(R.drawable.ic_close),
-                contentDescription = stringResource(R.string.close),
-            )
+            IconButton(
+                onClick = { action(ShoppingCartAction.OnItemRemove(cartItem.product)) },
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_close),
+                    contentDescription = stringResource(R.string.close),
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -219,8 +219,8 @@ private fun ShoppingCartItemContent(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = AbsoluteAlignment.Right,
             ) {
-                Spacer(modifier = Modifier.weight(1f))
                 Text(
+                    modifier = Modifier.padding(end = 18.dp),
                     text = cartItem.totalPrice.currency(context),
                     fontSize = 20.sp,
                 )
