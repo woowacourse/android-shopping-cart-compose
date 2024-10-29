@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import nextstep.shoppingcart.domain.ProductRepository
+import nextstep.shoppingcart.ui.cart.CartActivity
 import nextstep.shoppingcart.ui.productdetail.ProductDetailActivity
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 
@@ -29,14 +30,19 @@ class ProductListActivity : ComponentActivity() {
 
 @Composable
 fun ProductListScreen() {
+
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
-            ProductListTopBar({})
+            ProductListTopBar(
+                onCartClick = {
+                    context.startActivity(CartActivity.newIntent(context))
+                }
+            )
         },
         modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
-
-        val context = LocalContext.current
 
         ProductList(
             products = ProductRepository.dummy,
