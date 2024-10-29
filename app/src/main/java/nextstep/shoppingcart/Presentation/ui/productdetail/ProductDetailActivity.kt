@@ -1,11 +1,11 @@
-package nextstep.shoppingcart.Presentation.ui.productdetail
+package nextstep.shoppingcart.presentation.ui.productdetail
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
+import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 
 class ProductDetailActivity : ComponentActivity() {
     private val productId: Long by lazy { intent.getLongExtra(PUT_EXTRA_PRODUCT_ID, 0L) }

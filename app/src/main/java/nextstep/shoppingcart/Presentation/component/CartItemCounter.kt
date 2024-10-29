@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.Presentation.component
+package nextstep.shoppingcart.presentation.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -8,13 +8,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
 import nextstep.shoppingcart.data.model.CartItem
 import nextstep.shoppingcart.data.model.Product
 import nextstep.shoppingcart.data.repository.ProductRepository
+import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
 @Composable
@@ -26,7 +27,7 @@ fun CartItemCounter(
     Row {
         Icon(
             painter = painterResource(R.drawable.ic_remove),
-            contentDescription = null,
+            contentDescription = stringResource(R.string.decremented),
             modifier = Modifier.clickable { onItemDecremented(cartItem.product) },
         )
         Text(
@@ -36,7 +37,7 @@ fun CartItemCounter(
         )
         Icon(
             painter = painterResource(R.drawable.ic_add),
-            contentDescription = null,
+            contentDescription = stringResource(R.string.increment),
             modifier = Modifier.clickable { onItemIncremented(cartItem.product) },
         )
     }

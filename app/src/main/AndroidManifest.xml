@@ -16,14 +16,14 @@
         tools:targetApi="31">
 
         <activity
-            android:name="nextstep.shoppingcart.Presentation.ui.shoppingcart.ShoppingCartActivity"
+            android:name="nextstep.shoppingcart.presentation.ui.shoppingcart.ShoppingCartActivity"
             android:exported="false" />
         <activity
-            android:name="nextstep.shoppingcart.Presentation.ui.productdetail.ProductDetailActivity"
+            android:name="nextstep.shoppingcart.presentation.ui.productdetail.ProductDetailActivity"
             android:exported="false" />
 
         <activity
-            android:name="nextstep.shoppingcart.Presentation.ui.products.ProductsActivity"
+            android:name="nextstep.shoppingcart.presentation.ui.products.ProductsActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ShoppingCart">

@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.Presentation.component
+package nextstep.shoppingcart.presentation.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,10 +19,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.Presentation.common.currency
-import nextstep.shoppingcart.Presentation.ui.theme.Blue50
-import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
 import nextstep.shoppingcart.data.repository.CartRepository
+import nextstep.shoppingcart.presentation.common.currency
+import nextstep.shoppingcart.presentation.ui.theme.Blue50
+import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
 @Composable

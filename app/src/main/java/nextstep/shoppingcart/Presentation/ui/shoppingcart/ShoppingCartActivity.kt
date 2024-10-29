@@ -1,11 +1,11 @@
-package nextstep.shoppingcart.Presentation.ui.shoppingcart
+package nextstep.shoppingcart.presentation.ui.shoppingcart
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
+import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 
 class ShoppingCartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

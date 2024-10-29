@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.Presentation.common
+package nextstep.shoppingcart.presentation.common
 
 import android.content.Context
 import nextstep.signup.R

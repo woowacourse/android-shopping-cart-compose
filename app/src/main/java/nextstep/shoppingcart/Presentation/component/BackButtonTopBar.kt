@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.Presentation.component
+package nextstep.shoppingcart.presentation.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Row
@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
+import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
 @Composable

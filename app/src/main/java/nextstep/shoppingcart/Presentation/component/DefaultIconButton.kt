@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.Presentation.component
+package nextstep.shoppingcart.presentation.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.material3.Icon

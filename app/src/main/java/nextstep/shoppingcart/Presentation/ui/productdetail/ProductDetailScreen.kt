@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.Presentation.ui.productdetail
+package nextstep.shoppingcart.presentation.ui.productdetail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,14 +26,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import nextstep.shoppingcart.Presentation.common.currency
-import nextstep.shoppingcart.Presentation.component.BackButtonTopBar
-import nextstep.shoppingcart.Presentation.component.DefaultTextButton
-import nextstep.shoppingcart.Presentation.ui.theme.Blue50
-import nextstep.shoppingcart.Presentation.ui.theme.ShoppingCartTheme
 import nextstep.shoppingcart.data.model.Product
 import nextstep.shoppingcart.data.repository.CartRepository
 import nextstep.shoppingcart.data.repository.ProductRepository
+import nextstep.shoppingcart.presentation.common.currency
+import nextstep.shoppingcart.presentation.component.BackButtonTopBar
+import nextstep.shoppingcart.presentation.component.DefaultTextButton
+import nextstep.shoppingcart.presentation.ui.theme.Blue50
+import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
 @Composable
