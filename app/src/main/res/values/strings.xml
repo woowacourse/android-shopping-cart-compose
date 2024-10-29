@@ -2,5 +2,10 @@
     <string name="app_name">Shopping Cart</string>
     <string name="product_list">상품 목록</string>
     <string name="shopping_cart">장바구니</string>
+    <string name="put_shopping_cart">장바구니 담기</string>
+    <string name="price">금액</string>
     <string name="price_format">%,d원</string>
+
+
+    <string name="invalid_product_id">"유효하지 않은 제품 ID입니다."</string>
 </resources>

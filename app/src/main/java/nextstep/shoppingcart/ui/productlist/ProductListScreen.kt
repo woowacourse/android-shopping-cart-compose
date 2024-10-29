@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -29,7 +30,7 @@ import nextstep.signup.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductListScreen() {
+fun ProductListScreen(navigateToProductDetail: (Long) -> Unit) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -59,12 +60,17 @@ fun ProductListScreen() {
             columns = GridCells.Fixed(2),
             modifier = Modifier.padding(contentPadding),
             state = rememberLazyGridState(),
-            contentPadding = PaddingValues(start = 18.dp, end = 18.dp, top = 12.dp, bottom = 36.dp),
+            contentPadding = PaddingValues(horizontal = 18.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(products.size) { index ->
-                ProductItem(product = products[index])
+            items(products) { product ->
+                ProductItem(
+                    product = product,
+                    onClick = {
+                        navigateToProductDetail(product.id)
+                    },
+                )
             }
         }
     }
@@ -74,6 +80,6 @@ fun ProductListScreen() {
 @Preview(showBackground = true)
 fun ProductListScreenPreView() {
     ShoppingCartTheme {
-        ProductListScreen()
+        ProductListScreen(navigateToProductDetail = {})
     }
 }
