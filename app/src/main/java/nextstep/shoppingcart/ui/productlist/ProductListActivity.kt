@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import nextstep.shoppingcart.ui.productdetail.ProductDetailActivity
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 
 class ProductListActivity : ComponentActivity() {
@@ -32,7 +34,13 @@ fun ProductListScreen() {
         },
         modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
+
+        val context = LocalContext.current
+
         ProductList(
+            onItemClick = { product ->
+                context.startActivity(ProductDetailActivity.newIntent(context, product.id))
+            },
             modifier = Modifier.padding(innerPadding),
         )
     }

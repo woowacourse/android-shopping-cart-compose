@@ -11,7 +11,10 @@ import androidx.compose.ui.unit.dp
 import nextstep.shoppingcart.domain.Product
 
 @Composable
-fun ProductList(modifier: Modifier = Modifier) {
+fun ProductList(
+    onItemClick: (Product) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier,
@@ -20,7 +23,7 @@ fun ProductList(modifier: Modifier = Modifier) {
         contentPadding = PaddingValues(18.dp),
     ) {
         items(Product.dummy()) { item ->
-            ProductListItem(item)
+            ProductListItem(item, onItemClick)
         }
     }
 }

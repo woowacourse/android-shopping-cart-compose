@@ -1,5 +1,6 @@
 package nextstep.shoppingcart.ui.productlist
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,16 +20,22 @@ import nextstep.signup.R
 @Composable
 fun ProductListItem(
     product: Product,
+    onClick: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .clickable {
+                    onClick(product)
+                },
     ) {
         AsyncImage(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f),
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
             model = product.imageUrl,
             contentDescription = stringResource(R.string.product_list_image_desc, product.name),
             contentScale = ContentScale.Crop,
@@ -51,5 +58,5 @@ fun ProductListItem(
 @Preview(showBackground = true)
 @Composable
 private fun ProductListItemPreview() {
-    ProductListItem(Product.dummy().first())
+    ProductListItem(Product.dummy().first(), {})
 }

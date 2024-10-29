@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingCart"
         tools:targetApi="31">
+        <activity android:name="nextstep.shoppingcart.ui.productdetail.ProductDetailActivity"
+            android:exported="false"/>
         <activity
             android:name="nextstep.shoppingcart.ui.productlist.ProductListActivity"
             android:exported="true"
