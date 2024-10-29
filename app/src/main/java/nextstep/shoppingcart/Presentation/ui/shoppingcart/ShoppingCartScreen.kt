@@ -57,6 +57,7 @@ import nextstep.signup.R
 @Composable
 fun ShoppingCartScreen(onBack: () -> Unit) {
     var cartItems by rememberSaveable { mutableStateOf(CartRepository.items) }
+
     Scaffold(
         topBar = {
             BackButtonTopBar(
@@ -68,37 +69,30 @@ fun ShoppingCartScreen(onBack: () -> Unit) {
         ShoppingCartContent(
             cartItems = cartItems,
             modifier = Modifier.padding(paddingValues = paddingValues),
-            actions =
-                CartItemActions(
-                    onItemIncrement = { product ->
-                        CartRepository.addOne(product)
-                        cartItems = CartRepository.items
-                    },
-                    onItemDecrement = { product ->
-                        CartRepository.removeOne(product)
-                        cartItems = CartRepository.items
-                    },
-                    onItemRemove = { product ->
-                        CartRepository.removeAll(product)
-                        cartItems = CartRepository.items
-                    },
-                ),
+            action = { action ->
+                when (action) {
+                    is ShoppingCartAction.OnItemIncrement -> CartRepository.addOne(action.product)
+                    is ShoppingCartAction.OnItemDecrement -> CartRepository.removeOne(action.product)
+                    is ShoppingCartAction.OnItemRemove -> CartRepository.removeAll(action.product)
+                }
+                cartItems = CartRepository.items
+            },
         )
     }
 }
 
 @Composable
-private fun ShoppingCartContent(
+fun ShoppingCartContent(
     cartItems: List<CartItem>,
     modifier: Modifier = Modifier,
-    actions: CartItemActions,
+    action: (ShoppingCartAction) -> Unit,
 ) {
     val context = LocalContext.current
 
     Box(modifier = modifier.fillMaxSize()) {
         ShoppingCartLazyColumn(
             cartItems = cartItems,
-            actions = actions,
+            action = action,
         )
 
         DefaultTextButton(
@@ -126,7 +120,7 @@ private fun ShoppingCartContent(
 private fun ShoppingCartLazyColumn(
     cartItems: List<CartItem>,
     modifier: Modifier = Modifier,
-    actions: CartItemActions,
+    action: (ShoppingCartAction) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -138,7 +132,7 @@ private fun ShoppingCartLazyColumn(
         ) { cartItem ->
             ShoppingCartItem(
                 cartItem = cartItem,
-                actions = actions,
+                action = action,
             )
         }
         item { Spacer(modifier = Modifier.height(80.dp)) }
@@ -148,7 +142,7 @@ private fun ShoppingCartLazyColumn(
 @Composable
 private fun ShoppingCartItem(
     cartItem: CartItem,
-    actions: CartItemActions,
+    action: (ShoppingCartAction) -> Unit,
 ) {
     OutlinedCard(
         colors =
@@ -165,7 +159,7 @@ private fun ShoppingCartItem(
     ) {
         ShoppingCartItemContent(
             cartItem = cartItem,
-            actions = actions,
+            action = action,
         )
     }
 }
@@ -173,7 +167,7 @@ private fun ShoppingCartItem(
 @Composable
 private fun ShoppingCartItemContent(
     cartItem: CartItem,
-    actions: CartItemActions,
+    action: (ShoppingCartAction) -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -197,7 +191,7 @@ private fun ShoppingCartItemContent(
                 modifier =
                     Modifier
                         .size(24.dp)
-                        .clickable { actions.onItemRemove(cartItem.product) },
+                        .clickable { action(ShoppingCartAction.OnItemRemove(cartItem.product)) },
                 painter = painterResource(R.drawable.ic_close),
                 contentDescription = null,
             )
@@ -233,8 +227,12 @@ private fun ShoppingCartItemContent(
                 Spacer(modifier = Modifier.height(11.dp))
                 CartItemCounter(
                     cartItem = cartItem,
-                    onItemIncremented = actions.onItemIncrement,
-                    onItemDecremented = actions.onItemDecrement,
+                    onItemIncremented = {
+                        action(ShoppingCartAction.OnItemIncrement(cartItem.product))
+                    },
+                    onItemDecremented = {
+                        action(ShoppingCartAction.OnItemDecrement(cartItem.product))
+                    },
                 )
             }
         }
@@ -255,6 +253,6 @@ private fun ShoppingCartItemPreview() {
     val product = ProductRepository.getProducts().first()
     val cartItem = CartItem(product, 0)
     ShoppingCartTheme {
-        ShoppingCartItem(cartItem, CartItemActions({}, {}, {}))
+        ShoppingCartItem(cartItem, {})
     }
 }
