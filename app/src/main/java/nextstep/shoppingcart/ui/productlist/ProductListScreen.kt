@@ -30,7 +30,10 @@ import nextstep.signup.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductListScreen(navigateToProductDetail: (Long) -> Unit) {
+fun ProductListScreen(
+    navigateToProductDetail: (Long) -> Unit,
+    navigateToShoppingCart: () -> Unit,
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -44,7 +47,7 @@ fun ProductListScreen(navigateToProductDetail: (Long) -> Unit) {
                 },
                 actions = {
                     IconButton(
-                        onClick = { /* 장바구니 화면으로 이동 */ },
+                        onClick = { navigateToShoppingCart() },
                         modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
                     ) {
                         Icon(
@@ -60,7 +63,7 @@ fun ProductListScreen(navigateToProductDetail: (Long) -> Unit) {
             columns = GridCells.Fixed(2),
             modifier = Modifier.padding(contentPadding),
             state = rememberLazyGridState(),
-            contentPadding = PaddingValues(horizontal = 18.dp, vertical = 12.dp),
+            contentPadding = PaddingValues(start = 18.dp, end = 18.dp, top = 12.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
@@ -80,6 +83,6 @@ fun ProductListScreen(navigateToProductDetail: (Long) -> Unit) {
 @Preview(showBackground = true)
 fun ProductListScreenPreView() {
     ShoppingCartTheme {
-        ProductListScreen(navigateToProductDetail = {})
+        ProductListScreen(navigateToProductDetail = {}, navigateToShoppingCart = {})
     }
 }

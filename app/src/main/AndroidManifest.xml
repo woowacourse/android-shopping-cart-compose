@@ -15,12 +15,8 @@
         android:theme="@style/Theme.ShoppingCart"
         tools:targetApi="31">
         <activity
-            android:name="nextstep.shoppingcart.ui.productdetail.ProductDetailActivity"
-            android:exported="false" />
-        <activity
             android:name="nextstep.shoppingcart.ui.productlist.ProductListActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.ShoppingCart">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="nextstep.shoppingcart.ui.productdetail.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="nextstep.shoppingcart.ui.shoppingcart.ShoppingCartActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

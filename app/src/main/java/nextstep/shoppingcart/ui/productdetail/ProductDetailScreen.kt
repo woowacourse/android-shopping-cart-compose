@@ -9,17 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -31,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
 import nextstep.shoppingcart.ui.productlist.model.products
 import nextstep.shoppingcart.ui.theme.Blue50
 import nextstep.signup.R
@@ -40,34 +36,20 @@ import nextstep.signup.R
 fun ProductDetailScreen(
     productId: Long,
     navigateToBack: () -> Unit,
+    navigateToShoppingCart: () -> Unit,
 ) {
     val product =
-        products.first { product ->
+        products.find { product ->
             product.id == productId
-        }
+        } ?: return
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(title = {
-                Text(
-                    text = stringResource(R.string.product_list),
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.SemiBold,
-                )
-            }, navigationIcon = {
-                IconButton(
-                    onClick = {
-                        navigateToBack()
-                    },
-                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.shopping_cart),
-                    )
-                }
-            })
+            BackNavigationTopAppBar(
+                title = stringResource(R.string.product_list),
+                navigateToBack = navigateToBack,
+            )
         },
     ) { contentPadding ->
         Column(
@@ -118,7 +100,7 @@ fun ProductDetailScreen(
 
             Button(
                 onClick = {
-                    // 장바구니 담기
+                    navigateToShoppingCart()
                 },
                 modifier =
                     Modifier
@@ -140,5 +122,5 @@ fun ProductDetailScreen(
 @Composable
 @Preview(showBackground = true)
 fun ProductDetailScreenPreview() {
-    ProductDetailScreen(productId = 0L, navigateToBack = {})
+    ProductDetailScreen(productId = 0L, navigateToBack = {}, navigateToShoppingCart = {})
 }

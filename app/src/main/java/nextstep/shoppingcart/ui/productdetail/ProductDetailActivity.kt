@@ -3,11 +3,10 @@ package nextstep.shoppingcart.ui.productdetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartActivity
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
-import nextstep.signup.R
 
 class ProductDetailActivity : ComponentActivity() {
     private val productId: Long by lazy {
@@ -16,24 +15,24 @@ class ProductDetailActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (productId < 0) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.invalid_product_id),
-                Toast.LENGTH_SHORT,
-            ).show()
-            finish()
-        }
-
         setContent {
             ShoppingCartTheme {
-                ProductDetailScreen(productId = productId, navigateToBack = ::navigateToBack)
+                ProductDetailScreen(
+                    productId = productId,
+                    navigateToBack = ::navigateToBack,
+                    navigateToShoppingCart = ::navigateToShoppingCart,
+                )
             }
         }
     }
 
     private fun navigateToBack() {
         finish()
+    }
+
+    private fun navigateToShoppingCart() {
+        val shoppingCartIntent = ShoppingCartActivity.getIntent(this)
+        startActivity(shoppingCartIntent)
     }
 
     companion object {
