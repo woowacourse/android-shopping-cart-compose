@@ -11,6 +11,8 @@
     <!--장바구니-->
     <string name="shopping_cart_title">장바구니</string>
     <string name="order_title">주문하기(%s)</string>
+    <string name="increment">수량 추가</string>
+    <string name="decremented">수량 감소</string>
 
 
     <!--공통-->
