@@ -169,6 +169,14 @@ key는 리스트 아이템의 id와 같은 고유 값을 가지므로, 스크롤
 
 # 테스트를 위한 contentDescription 작성은 선택이 아닌 필수인가?
 
+`contentDescription`은 시각적 요소에 대한 설명을 제공하여 시각 장애인이 사용하는 스크린 리더가 해당 요소의 의미를 이해할 수 있도록 돕는 역할을 한다. 
+
+UI 테스트를 수행할 때 `onNodeWithText`와 `SemanticsMatcher`로 찾을 수 없는 Composable이 있을 수 있다. (Icon의 경우 찾지 못하는 것으로 보인다..)
+이때 `contentDescription`은 이러한 요소를 식별하는 데 중요한 역할을 한다.
+
+결론적으로, Compose에서 UI 요소를 만들 때 `contentDescription`을 작성하는 것은 필수적이라고 할 수 있다.
+
+
 # LocalContext.current를 사용할 때 고려사항이 무엇인가?
 
 `LocalContext.current`는 `@Composable` 함수에서 현재 `Context` 객체를 가져오는 데 사용되며,
