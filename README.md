@@ -29,13 +29,12 @@
 
 ## Coil vs Glide
 
-Coil은 kotlin으로 구현된 이미지 처리 라이브러리로, Coroutine을 통해 이미지를 로드하여 
+Coil은 kotlin으로 구현된 이미지 처리 라이브러리로, Coroutine을 통해 이미지를 로드하여
 BackgroundThread에서 동작하는 Glide와 달리, Native Code 호출을 줄여 메모리 효율이 높고 성능이 우수함.
 
 Kotlin 으로 구현된 이미지 처리 라이브러리
 Coroutine 사용하여 이미지를 로드함
 Coroutine 을 사용하므로, BackgroundThread 를 사용하는 Glide 와 다르게 Native Code 호출 메모리가 적음 즉, 성능이 좋음
-
 
 ### 예시 코드
 
@@ -65,11 +64,10 @@ GlideImage(
 
 ### 특성 비교
 
-Coil과 Glide는 단순 이미지 로드에서는 유사한 구문을 사용하지만, 
+Coil과 Glide는 단순 이미지 로드에서는 유사한 구문을 사용하지만,
 확장 기능을 추가하거나 에러 처리를 구현할 때 차이가 두드러진다.
 
 ### Glide의 경우, 추가적인 속성 구현 시 코드가 복잡해지는 경향이 있다.
-
 
 ```kotlin
 
@@ -84,6 +82,7 @@ GlideImage(
     }
 )
 ```
+
 Coil은 에러 처리 코드가 상대적으로 더 간결하며 명확하다.
 
 ```kotlin
@@ -108,15 +107,67 @@ GlideImage(
 )
 
 ```
-### 정리하면.. 
+
+### 정리하면..
+
 - Coil은 Kotlin의 장점을 살려 코드가 깔끔하며, 특히 에러 처리에서 더 간편하다.
 - Coroutine을 사용해 Glide보다 Native Code 호출이 적어 메모리 효율성이 높다.
 - Glide는 다양한 이미지 처리를 지원하지만 코드가 복잡해질 수 있다.
 
+# Lazy 컴포넌트의 작동 원리
+
+Lazy 컴포넌트는 Jetpack Compose에서 대량의 리스트나 그리드 데이터를 효율적으로 처리하기 위해 사용하는 컴포저블이다.
+리스트나 그리드를 스크롤할 때 필요한 항목만 렌더링하여, 성능을 높이는 방식으로 작동한다.
+
+LazyColumn과 LazyRow 같은 Lazy 컴포넌트들은 실제로 사용자가 보고 있는 항목만 메모리에 유지하고,
+스크롤될 때 필요한 새로운 항목을 동적으로 생성하여 메모리를 효율적으로 사용한다.
+
+### 작동 방식의 주요 포인트
+
+- 항목을 미리 로드하지 않는다. 즉, 스크롤되지 않는 항목은 화면에 렌더링되지 않으므로 불필요한 메모리 사용을 줄인다.
+- 재사용한다. 기존에 스크롤을 통해 사라진 항목은 메모리에서 해제되므로 필요할 때 다시 생성되며, 이렇게 메모리를 효율적으로 관리한다.
+- LazyColumn 내부에서는 LazyListScope의 items 함수를 사용하여 각 항목의 구성을 선언적으로 정의할 수 있다. 이로 인해 코드의 가독성이 높아지고 구조화가
+  용이해진다.
+
+이러한 구조 덕분에 Lazy 컴포넌트는 RecyclerView와 비슷한 방식으로 효율적으로 작동하며, 스크롤 성능을 개선하고 메모리를 절약하는 데 효과적이다.
+
+### state는 뭐야?
+
+state는 리스트의 스크롤 위치와 같은 상태를 관리하는 데 사용된다. 
+이를 통해 현재 스크롤 위치를 저장하거나, 사용자가 나중에 리스트에 다시 돌아왔을 때 이전 스크롤 위치를 복원할 수 있다.
+
+```kotlin
+val listState = rememberLazyListState()
+
+LazyColumn(state = listState) {
+    items(100) { index ->
+        Text("Item #$index")
+    }
+}
+```
+
+listState.firstVisibleItemIndex: 현재 화면에 보이는 첫 번째 항목의 인덱스
+listState.firstVisibleItemScrollOffset: 첫 번째 항목의 스크롤 오프셋
+
+### key는 뭐야?
+
+key는 리스트의 각 항목을 고유하게 식별하는 데 사용된다.
+데이터가 변경되거나 리스트가 스크롤될 때 항목이 재구성되지 않도록 보장한다.
 
 
-### Lazy 컴포넌트의 작동 원리
+```kotlin
+val items = listOf("Apple", "Banana", "Cherry")
 
-### 테스트를 위한 contentDescription 작성은 선택이 아닌 필수인가?
+LazyColumn {
+    items(items, key = { it }) { item ->
+        Text(text = item)
+    }
+}
+```
 
-### LocalContext.current를 사용할 때 고려사항이 무엇인가?
+key가 없으면 항목이 순서에 따라 식별되어 데이터가 변경될 때 항목이 잘못 재사용될 가능성이 있다.
+key는 리스트 아이템의 id와 같은 고유 값을 가지므로, 스크롤 시 항목의 순서가 유지된다.
+
+# 테스트를 위한 contentDescription 작성은 선택이 아닌 필수인가?
+
+# LocalContext.current를 사용할 때 고려사항이 무엇인가?
