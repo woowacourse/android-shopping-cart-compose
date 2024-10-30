@@ -28,17 +28,17 @@ fun ProductItem(
 ) {
     Column(
         modifier =
-            Modifier.clickable {
-                onClick()
-            },
+        Modifier.clickable {
+            onClick()
+        },
     ) {
         AsyncImage(
             model = product.imageUrl,
             contentDescription = product.name,
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f),
+            Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f),
             contentScale = ContentScale.Crop,
         )
         Text(
