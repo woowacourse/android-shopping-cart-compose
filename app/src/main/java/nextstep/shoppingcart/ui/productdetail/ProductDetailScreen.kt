@@ -21,9 +21,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import nextstep.shoppingcart.data.repository.DefaultShoppingCartRepository
+import nextstep.shoppingcart.domain.model.products
 import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
 import nextstep.shoppingcart.ui.component.RectangleButton
-import nextstep.shoppingcart.ui.productlist.model.products
+import nextstep.shoppingcart.ui.theme.Gray10
+import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
 @Composable
@@ -71,7 +74,7 @@ fun ProductDetailScreen(
                 overflow = TextOverflow.Ellipsis,
             )
 
-            HorizontalDivider()
+            HorizontalDivider(thickness = 1.dp, color = Gray10)
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -93,8 +96,11 @@ fun ProductDetailScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             RectangleButton(
-                text = stringResource(R.string.put_shopping_cart),
-                onClick = navigateToShoppingCart,
+                text = stringResource(R.string.add_shopping_cart_product),
+                onClick = {
+                    DefaultShoppingCartRepository.addProduct(product = product)
+                    navigateToShoppingCart()
+                },
             )
         }
     }
@@ -103,5 +109,7 @@ fun ProductDetailScreen(
 @Composable
 @Preview(showBackground = true)
 fun ProductDetailScreenPreview() {
-    ProductDetailScreen(productId = 0L, navigateToBack = {}, navigateToShoppingCart = {})
+    ShoppingCartTheme {
+        ProductDetailScreen(productId = 0L, navigateToBack = {}, navigateToShoppingCart = {})
+    }
 }

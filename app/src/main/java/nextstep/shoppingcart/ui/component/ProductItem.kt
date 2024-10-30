@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import nextstep.shoppingcart.ui.productlist.model.Product
-import nextstep.shoppingcart.ui.productlist.model.products
+import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.domain.model.products
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
@@ -28,17 +28,17 @@ fun ProductItem(
 ) {
     Column(
         modifier =
-        Modifier.clickable {
-            onClick()
-        },
+            Modifier.clickable {
+                onClick()
+            },
     ) {
         AsyncImage(
             model = product.imageUrl,
             contentDescription = product.name,
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f),
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
             contentScale = ContentScale.Crop,
         )
         Text(
