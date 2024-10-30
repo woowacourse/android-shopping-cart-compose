@@ -133,7 +133,7 @@ LazyColumn과 LazyRow 같은 Lazy 컴포넌트들은 실제로 사용자가 보�
 
 ### state는 뭐야?
 
-state는 리스트의 스크롤 위치와 같은 상태를 관리하는 데 사용된다. 
+state는 리스트의 스크롤 위치와 같은 상태를 관리하는 데 사용된다.
 이를 통해 현재 스크롤 위치를 저장하거나, 사용자가 나중에 리스트에 다시 돌아왔을 때 이전 스크롤 위치를 복원할 수 있다.
 
 ```kotlin
@@ -154,7 +154,6 @@ listState.firstVisibleItemScrollOffset: 첫 번째 항목의 스크롤 오프셋
 key는 리스트의 각 항목을 고유하게 식별하는 데 사용된다.
 데이터가 변경되거나 리스트가 스크롤될 때 항목이 재구성되지 않도록 보장한다.
 
-
 ```kotlin
 val items = listOf("Apple", "Banana", "Cherry")
 
@@ -171,3 +170,14 @@ key는 리스트 아이템의 id와 같은 고유 값을 가지므로, 스크롤
 # 테스트를 위한 contentDescription 작성은 선택이 아닌 필수인가?
 
 # LocalContext.current를 사용할 때 고려사항이 무엇인가?
+
+`LocalContext.current`는 `@Composable` 함수에서 현재 `Context` 객체를 가져오는 데 사용되며,
+일반적으로 Android의 `Activity`, `ApplicationContext`, 또는 `Resources`에 접근할 때 활용된다.
+
+`LocalContext.current`를 사용할 때 어떤 것을 고려해야할까??
+
+### 리컴포지션에 주의
+
+`LocalContext.current`는 `Context`의 변경에 영향을 받지 않으므로 일반적으로 리컴포지션에 의해 값이 변경되지 않는다.
+그러나 `Context`에 의존하는 경우(테마가 변경되는 등), `LocalContext`에 의해 리컴포지션이 발생할 가능성이 있으므로, 값 참조가 반복적으로 수행되지
+않도록 필요한 경우 미리 저장해두는 것이 좋다.
