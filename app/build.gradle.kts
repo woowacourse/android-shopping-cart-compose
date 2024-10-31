@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "nextstep.signup"
+    namespace = "nextstep.shoppingcart"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "nextstep.signup"
+        applicationId = "nextstep.shoppingcart"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.coil.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
