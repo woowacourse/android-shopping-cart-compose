@@ -15,14 +15,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import nextstep.shoppingcart.domain.Product
 import nextstep.shoppingcart.domain.ProductRepository
+import nextstep.shoppingcart.ui.component.BackNavigationTopBar
 import nextstep.shoppingcart.ui.component.SubmitButton
 import nextstep.shoppingcart.ui.productdetail.ProductDetailActivity.Companion.EXTRA_PRODUCT_ID
 import nextstep.shoppingcart.ui.productdetail.ProductDetailActivity.Companion.INVALID_PRODUCT_ID
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.shoppingcart.ui.util.findActivity
+import nextstep.signup.R
 
 class ProductDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,9 +66,12 @@ fun ProductDetailScreen() {
 
     Scaffold(
         topBar = {
-            ProductDetailTopBar {
-                activity.finish()
-            }
+            BackNavigationTopBar(
+                title = stringResource(R.string.product_detail_title),
+                onClickNavigationIcon = {
+                    activity.finish()
+                }
+            )
         },
         modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->

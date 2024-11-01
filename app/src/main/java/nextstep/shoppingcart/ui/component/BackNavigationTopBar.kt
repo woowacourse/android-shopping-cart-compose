@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.ui.productdetail
+package nextstep.shoppingcart.ui.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -14,11 +14,14 @@ import nextstep.signup.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDetailTopBar(onClickNavigationIcon: () -> Unit) {
+fun BackNavigationTopBar(
+    title: String,
+    onClickNavigationIcon: () -> Unit
+) {
     TopAppBar(
         title = {
             Text(
-                text = stringResource(R.string.product_detail_title),
+                text = title,
                 style = Typography.headlineMedium,
             )
         },
