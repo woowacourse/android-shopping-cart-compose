@@ -27,9 +27,9 @@ fun CountUpdateButton(
     Row {
         IconButton(
             modifier =
-            Modifier
-                .width(42.dp)
-                .height(42.dp),
+                Modifier
+                    .width(42.dp)
+                    .height(42.dp),
             onClick = onCountMinus,
         ) {
             Icon(
@@ -42,17 +42,17 @@ fun CountUpdateButton(
             text = count.toString(),
             style = Typography.displayMedium,
             modifier =
-            Modifier
-                .wrapContentHeight()
-                .padding(horizontal = 12.dp)
-                .align(Alignment.CenterVertically),
+                Modifier
+                    .wrapContentHeight()
+                    .padding(horizontal = 12.dp)
+                    .align(Alignment.CenterVertically),
         )
 
         IconButton(
             modifier =
-            Modifier
-                .width(42.dp)
-                .height(42.dp),
+                Modifier
+                    .width(42.dp)
+                    .height(42.dp),
             onClick = onCountPlus,
         ) {
             Icon(

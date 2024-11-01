@@ -49,15 +49,16 @@ fun CartItem(
         ) {
             Row(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(start = 18.dp, end = 6.dp, top = 6.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(start = 18.dp, end = 6.dp, top = 6.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .weight(1f),
+                    modifier =
+                        Modifier
+                            .align(Alignment.CenterVertically)
+                            .weight(1f),
                     text = cartProduct.product.name,
                     style = Typography.titleMedium,
                     maxLines = 1,
@@ -66,16 +67,16 @@ fun CartItem(
 
                 IconButton(
                     modifier =
-                    Modifier
-                        .height(48.dp)
-                        .width(48.dp),
+                        Modifier
+                            .height(48.dp)
+                            .width(48.dp),
                     onClick = onItemDelete,
                 ) {
                     Icon(
                         modifier =
-                        Modifier
-                            .height(24.dp)
-                            .width(24.dp),
+                            Modifier
+                                .height(24.dp)
+                                .width(24.dp),
                         imageVector = Icons.Filled.Close,
                         contentDescription = stringResource(R.string.product_list_cart_button_desc),
                     )
@@ -84,18 +85,18 @@ fun CartItem(
 
             Row(
                 modifier =
-                Modifier
-                    .padding(horizontal = 18.dp)
-                    .padding(bottom = 18.dp)
-                    .fillMaxWidth(),
+                    Modifier
+                        .padding(horizontal = 18.dp)
+                        .padding(bottom = 18.dp)
+                        .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 AsyncImage(
                     model = cartProduct.product.imageUrl,
                     modifier =
-                    Modifier
-                        .width(136.dp)
-                        .height(84.dp),
+                        Modifier
+                            .width(136.dp)
+                            .height(84.dp),
                     contentScale = ContentScale.Crop,
                     contentDescription = stringResource(R.string.cart_product_image_desc),
                 )
