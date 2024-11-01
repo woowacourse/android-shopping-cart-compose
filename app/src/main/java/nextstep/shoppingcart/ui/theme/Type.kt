@@ -10,6 +10,14 @@ import androidx.compose.ui.unit.sp
 // Set of Material typography styles to start with
 val Typography =
     Typography(
+        displayMedium =
+            TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.W400,
+                fontSize = 22.sp,
+                lineHeight = 18.sp,
+                color = Color.Black,
+            ),
         headlineMedium =
             TextStyle(
                 fontFamily = FontFamily.Default,
@@ -26,6 +34,15 @@ val Typography =
                 lineHeight = 28.sp,
                 letterSpacing = 0.5.sp,
                 color = Gray20,
+            ),
+        titleMedium =
+            TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.W700,
+                fontSize = 20.sp,
+                lineHeight = 24.sp,
+                letterSpacing = 0.5.sp,
+                color = Color.Black,
             ),
         titleSmall =
             TextStyle(
