@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import nextstep.shoppingcart.domain.CartProductRepository
 import nextstep.shoppingcart.domain.Product
 import nextstep.shoppingcart.domain.ProductRepository
 import nextstep.shoppingcart.ui.component.BackNavigationTopBar
@@ -70,7 +71,7 @@ fun ProductDetailScreen() {
                 title = stringResource(R.string.product_detail_title),
                 onClickNavigationIcon = {
                     activity.finish()
-                }
+                },
             )
         },
         modifier = Modifier.fillMaxSize(),
@@ -87,6 +88,10 @@ fun ProductDetailScreen() {
             )
 
             SubmitButton(
+                label = stringResource(R.string.product_detail_cart_button),
+                onClick = {
+                    CartProductRepository.addItem(product)
+                },
                 modifier =
                     Modifier
                         .fillMaxWidth()

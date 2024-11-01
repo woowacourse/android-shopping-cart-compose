@@ -8,15 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.stringResource
 import nextstep.shoppingcart.ui.theme.Blue50
 import nextstep.shoppingcart.ui.theme.Gray10
 import nextstep.shoppingcart.ui.theme.Gray50
 import nextstep.shoppingcart.ui.theme.Typography
-import nextstep.signup.R
 
 @Composable
-fun SubmitButton(modifier: Modifier) {
+fun SubmitButton(
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Button(
         shape = RectangleShape,
         modifier =
@@ -29,10 +31,10 @@ fun SubmitButton(modifier: Modifier) {
                 disabledContentColor = Gray10,
                 disabledContainerColor = Gray50,
             ),
-        onClick = {},
+        onClick = onClick,
     ) {
         Text(
-            text = stringResource(R.string.product_detail_cart_button),
+            text = label,
             style = Typography.labelMedium,
         )
     }
