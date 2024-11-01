@@ -8,12 +8,6 @@ object DefaultShoppingCartRepository {
     private val _shoppingCartProducts: MutableList<ShoppingCartProduct> = mutableListOf()
     val shoppingCartProducts: List<ShoppingCartProduct> get() = _shoppingCartProducts.toList()
 
-    val totalPrice: Int
-        get() =
-            _shoppingCartProducts.sumOf { shoppingCartProduct ->
-                shoppingCartProduct.totalPrice
-            }
-
     fun addProduct(product: Product) {
         val shoppingCartProduct =
             _shoppingCartProducts.find { shoppingCartProduct ->
@@ -45,7 +39,7 @@ object DefaultShoppingCartRepository {
     }
 
     fun removeProduct(product: Product) {
-        _shoppingCartProducts.removeAll { shoppingCartProduct ->
+        _shoppingCartProducts.removeIf { shoppingCartProduct ->
             shoppingCartProduct.product == product
         }
     }

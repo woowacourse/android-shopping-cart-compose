@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -18,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import nextstep.shoppingcart.data.repository.DefaultShoppingCartRepository
+import nextstep.shoppingcart.domain.model.ShoppingCartProduct
+import nextstep.shoppingcart.domain.model.ShoppingCartProducts
 import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
 import nextstep.shoppingcart.ui.component.RectangleButton
 import nextstep.shoppingcart.ui.component.ShoppingCartItem
@@ -28,13 +29,9 @@ import nextstep.signup.R
 fun ShoppingCartScreen(navigateToBack: () -> Unit) {
     var shoppingCartProducts by rememberSaveable {
         mutableStateOf(
-            DefaultShoppingCartRepository.shoppingCartProducts,
-        )
-    }
-
-    var totalPrice by rememberSaveable {
-        mutableIntStateOf(
-            DefaultShoppingCartRepository.totalPrice,
+            ShoppingCartProducts(
+                items = DefaultShoppingCartRepository.shoppingCartProducts,
+            ),
         )
     }
 
@@ -49,9 +46,9 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
     ) { contentPadding ->
         Column(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding),
+            Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             val listState = rememberLazyListState()
@@ -60,38 +57,42 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
                 state = listState,
             ) {
                 items(
-                    items = shoppingCartProducts,
-                    key = { shoppingCartProduct -> shoppingCartProduct.product.id },
+                    items = shoppingCartProducts.items,
+                    key = { item -> item.product.id },
                 ) { shoppingCartProduct ->
                     ShoppingCartItem(shoppingCartProduct = shoppingCartProduct, action = { action ->
-                        when (action) {
-                            is ShoppingCartAction.PlusQuantity ->
-                                DefaultShoppingCartRepository.addProduct(
-                                    shoppingCartProduct.product,
-                                )
-
-                            is ShoppingCartAction.MinusQuantity ->
-                                DefaultShoppingCartRepository.decreaseProductQuantity(
-                                    shoppingCartProduct.product,
-                                )
-
-                            is ShoppingCartAction.RemoveProduct ->
-                                DefaultShoppingCartRepository.removeProduct(
-                                    shoppingCartProduct.product,
-                                )
+                        handleShoppingCartAction(action, shoppingCartProduct) { updatedProducts ->
+                            shoppingCartProducts =
+                                shoppingCartProducts.copy(items = updatedProducts)
                         }
-                        shoppingCartProducts = DefaultShoppingCartRepository.shoppingCartProducts
-                        totalPrice = DefaultShoppingCartRepository.totalPrice
                     })
                 }
             }
 
             RectangleButton(
-                text = stringResource(R.string.order_price, totalPrice),
+                text = stringResource(R.string.order_price, shoppingCartProducts.totalPrice),
                 onClick = {},
             )
         }
     }
+}
+
+private fun handleShoppingCartAction(
+    action: ShoppingCartAction,
+    shoppingCartProduct: ShoppingCartProduct,
+    updateShoppingCartProducts: (List<ShoppingCartProduct>) -> Unit
+) {
+    when (action) {
+        is ShoppingCartAction.PlusQuantity ->
+            DefaultShoppingCartRepository.addProduct(shoppingCartProduct.product)
+
+        is ShoppingCartAction.MinusQuantity ->
+            DefaultShoppingCartRepository.decreaseProductQuantity(shoppingCartProduct.product)
+
+        is ShoppingCartAction.RemoveProduct ->
+            DefaultShoppingCartRepository.removeProduct(shoppingCartProduct.product)
+    }
+    updateShoppingCartProducts(DefaultShoppingCartRepository.shoppingCartProducts)
 }
 
 @Composable
