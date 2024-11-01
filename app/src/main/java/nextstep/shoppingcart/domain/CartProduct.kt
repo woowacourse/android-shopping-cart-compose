@@ -8,7 +8,7 @@ data class CartProduct(
     val totalPrice: Int = product.price * quantity.currentValue
 
     fun increaseCount(): CartQuantityUpdateResult =
-        if (quantity.maxValue != null && quantity.currentValue < quantity.maxValue) {
+        if ((quantity.maxValue != null && quantity.currentValue < quantity.maxValue) || quantity.maxValue == null) {
             CartQuantityUpdateResult.Success(
                 this.copy(
                     quantity = quantity.copy(currentValue = quantity.currentValue + countInterval),
@@ -19,7 +19,7 @@ data class CartProduct(
         }
 
     fun decreaseCount(): CartQuantityUpdateResult =
-        if (quantity.maxValue != null && quantity.currentValue > quantity.minValue) {
+        if (quantity.currentValue > quantity.minValue) {
             CartQuantityUpdateResult.Success(
                 this.copy(
                     quantity = quantity.copy(currentValue = quantity.currentValue - countInterval),

@@ -5,15 +5,15 @@ object CartProductRepository {
     val cartItems: List<CartProduct> get() = _cartItems.toList()
 
     fun addItem(product: Product) {
-        if (_cartItems.any { it.product.id == product.id }) {
+        if (_cartItems.all { it.product.id != product.id }) {
             _cartItems.add(
                 CartProduct(
                     product = product,
                 ),
             )
-            return
+        } else {
+            plusItemCount(product.id)
         }
-        plusItemCount(product.id)
     }
 
     fun minusItemCount(productId: Long) {
@@ -24,7 +24,6 @@ object CartProductRepository {
             CartQuantityUpdateResult.MinFail -> deleteCartItem(productId)
             is CartQuantityUpdateResult.Success -> _cartItems[index] = result.product
         }
-
     }
 
     fun plusItemCount(productId: Long): CartQuantityUpdateResult {
@@ -47,4 +46,6 @@ object CartProductRepository {
         _cartItems.firstOrNull {
             it.product.id == productId
         } ?: throw IllegalArgumentException("장바구니에 $productId 에 대한 상품이 없습니다.")
+
+    fun totalPrice(): Int = _cartItems.sumOf { it.totalPrice }
 }
