@@ -16,7 +16,7 @@ import nextstep.signup.R
 @Composable
 fun BackNavigationTopBar(
     title: String,
-    onClickNavigationIcon: () -> Unit
+    onClickNavigationIcon: () -> Unit,
 ) {
     TopAppBar(
         title = {
