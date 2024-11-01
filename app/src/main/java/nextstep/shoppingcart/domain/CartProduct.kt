@@ -5,6 +5,8 @@ data class CartProduct(
     val quantity: Quantity = Quantity(currentValue = INITIAL_COUNT),
     val countInterval: Int = DEFAULT_COUNT_INTERVAL,
 ) {
+    val totalPrice: Int = product.price * quantity.currentValue
+
     fun increaseCount(): CartQuantityUpdateResult =
         if (quantity.maxValue != null && quantity.currentValue < quantity.maxValue) {
             CartQuantityUpdateResult.Success(
@@ -30,5 +32,9 @@ data class CartProduct(
     companion object {
         private const val DEFAULT_COUNT_INTERVAL = 1
         private const val INITIAL_COUNT = 1
+        val dummy =
+            CartProduct(
+                ProductRepository.dummy.first(),
+            )
     }
 }
