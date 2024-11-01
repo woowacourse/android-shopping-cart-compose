@@ -11,4 +11,10 @@
     <string name="product_detail_back_button_desc">뒤로가기 버튼</string>
     <string name="product_detail_price">금액</string>
     <string name="product_detail_cart_button">장바구니 담기</string>
+
+    <string name="cart_title">장바구니</string>
+    <string name="cart_order_button">주문하기(%,d원)</string>
+    <string name="cart_product_image_desc">장바구니 상품 이미지</string>
+    <string name="count_plus_desc">수량 증가 버튼</string>
+    <string name="count_minus_desc">수량 감소 버튼</string>
 </resources>
