@@ -46,9 +46,9 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
     ) { contentPadding ->
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(contentPadding),
+                Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             val listState = rememberLazyListState()
@@ -80,7 +80,7 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
 private fun handleShoppingCartAction(
     action: ShoppingCartAction,
     shoppingCartProduct: ShoppingCartProduct,
-    updateShoppingCartProducts: (List<ShoppingCartProduct>) -> Unit
+    updateShoppingCartProducts: (List<ShoppingCartProduct>) -> Unit,
 ) {
     when (action) {
         is ShoppingCartAction.PlusQuantity ->
