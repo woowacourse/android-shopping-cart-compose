@@ -1,6 +1,9 @@
 package nextstep.shoppingcart.data
 
-import nextstep.shoppingcart.product.model.Product
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.domain.repository.ProductRepository
 
 class DefaultProductRepository : ProductRepository {
     private var products: List<Product> = listOf(
@@ -62,7 +65,7 @@ class DefaultProductRepository : ProductRepository {
         )
     )
 
-    override fun products(): List<Product> = products
+    override fun products(): Flow<List<Product>> = flow { emit(products) }
 
     override fun productBy(id: Long): Product? = products.find { it.id == id }
 }
