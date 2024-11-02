@@ -42,22 +42,9 @@ import nextstep.shoppingcart.product.model.Product
 import nextstep.shoppingcart.product.preview.ProductPreviewParameterProvider
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 
-@Composable
-fun ProductScreen() {
-    ProductScreen(
-        products = Product.dummys,
-        onItemClick = {
-            // TODO : 상품 상세 화면으로 이동
-        },
-        onCartClick = {
-            // TODO : 장바구니 화면으로 이동
-        }
-    )
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ProductScreen(
+fun ProductScreen(
     products: List<Product>,
     onItemClick: (id: Long) -> Unit,
     onCartClick: () -> Unit,
@@ -66,13 +53,13 @@ private fun ProductScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "상품 목록")
+                    Text(text = stringResource(id = R.string.product_screen_title))
                 },
                 actions = {
                     IconButton(onClick = onCartClick) {
                         Icon(
                             imageVector = Icons.Filled.ShoppingCart,
-                            contentDescription = "장바구니"
+                            contentDescription = stringResource(id = R.string.product_top_bar_actions_content_description)
                         )
                     }
                 }
@@ -127,7 +114,7 @@ private fun ProductEmptyContent(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "상품이 없습니다.",
+            text = stringResource(id = R.string.product_screen_empty_content),
             style = MaterialTheme.typography.displayMedium
         )
     }
@@ -161,7 +148,7 @@ private fun ProductItem(
         Spacer(modifier = Modifier.height(8.dp))
         Column(Modifier.padding(horizontal = 4.dp)) {
             Text(
-                text = product.productName,
+                text = product.name,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
@@ -182,7 +169,7 @@ private fun PreviewProductItem() {
         ProductItem(
             product = Product(
                 id = 1,
-                productName = "상품 이름",
+                name = "상품 이름",
                 price = 1000,
                 imageUrl = "https://www.example.com/image.jpg"
 

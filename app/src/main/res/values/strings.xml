@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">Shopping Cart</string>
     <string name="price_format">%,d원</string>
+    <!--    Product-->
+    <string name="product_screen_title">상품 목록</string>
+    <string name="product_top_bar_actions_content_description">장바구니로 이동</string>
+    <string name="product_content_description">상품 이미지</string>
+    <string name="product_screen_empty_content">상품이 없습니다.</string>
+
+    <!-- Product Detail-->
+    <string name="product_detail_screen_error">상품 정보를 불러오는데 실패했습니다.</string>
+    <string name="product_top_bar_navigation_icon_content_description">장바구니로 이동</string>
+    <string name="product_detail_screen_title">상품 상세</string>
+    <string name="product_detail_price_description">금액</string>
+    <string name="product_detail_add_cart_button">장바구니 담기</string>
 </resources>
