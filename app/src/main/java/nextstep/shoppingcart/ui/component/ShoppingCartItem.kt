@@ -100,7 +100,7 @@ fun ShoppingCartItem(
                     fontSize = 16.sp,
                 )
 
-                QuantityAdjuster(
+                QuantityControl(
                     quantity = shoppingCartProduct.quantity,
                     minusQuantity = { action(MinusQuantity(product = shoppingCartProduct.product)) },
                     plusQuantity = { action(PlusQuantity(product = shoppingCartProduct.product)) },
