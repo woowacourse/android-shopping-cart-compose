@@ -37,6 +37,9 @@ fun ProductListScreen(
     navigateToProductDetail: (Long) -> Unit,
     navigateToShoppingCart: () -> Unit,
 ) {
+    val gridState = rememberLazyGridState()
+    val products by rememberSaveable { mutableStateOf(products) }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -62,9 +65,6 @@ fun ProductListScreen(
             )
         },
     ) { contentPadding ->
-        val gridState = rememberLazyGridState()
-        val products by rememberSaveable { mutableStateOf(products) }
-
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier.padding(contentPadding),

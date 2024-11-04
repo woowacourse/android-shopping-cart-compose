@@ -27,6 +27,7 @@ import nextstep.signup.R
 
 @Composable
 fun ShoppingCartScreen(navigateToBack: () -> Unit) {
+    val listState = rememberLazyListState()
     var shoppingCartProducts by rememberSaveable {
         mutableStateOf(
             ShoppingCartProducts(
@@ -46,13 +47,11 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
     ) { contentPadding ->
         Column(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding),
+            Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            val listState = rememberLazyListState()
-
             LazyColumn(
                 state = listState,
             ) {
