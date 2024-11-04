@@ -18,16 +18,14 @@ import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 @Composable
 fun RectangleButton(
     text: String,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     Button(
         onClick = {
             onClick()
         },
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .height(54.dp),
+        modifier = modifier,
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Blue50),
     ) {
@@ -43,6 +41,9 @@ fun RectangleButton(
 @Preview(showBackground = true)
 fun RectangleButtonPreview() {
     ShoppingCartTheme {
-        RectangleButton(text = "RectangleButton", onClick = {})
+        RectangleButton(text = "RectangleButton", modifier =
+        Modifier
+            .fillMaxWidth()
+            .height(54.dp), onClick = {})
     }
 }

@@ -20,6 +20,7 @@ import nextstep.signup.R
 @Composable
 fun BackNavigationTopAppBar(
     title: String,
+    modifier: Modifier = Modifier,
     navigateToBack: () -> Unit,
 ) {
     TopAppBar(title = {
@@ -33,7 +34,7 @@ fun BackNavigationTopAppBar(
             onClick = {
                 navigateToBack()
             },
-            modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
+            modifier = modifier,
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,

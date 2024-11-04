@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
@@ -40,6 +41,7 @@ fun ProductDetailScreen(
         topBar = {
             BackNavigationTopAppBar(
                 title = stringResource(R.string.product_list),
+                modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
                 navigateToBack = navigateToBack,
             )
         },
@@ -90,6 +92,10 @@ fun ProductDetailScreen(
 
             RectangleButton(
                 text = stringResource(R.string.add_shopping_cart_product),
+                modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(54.dp),
                 onClick = {
                     DefaultShoppingCartRepository.addProduct(product = product)
                     navigateToShoppingCart()

@@ -1,6 +1,5 @@
 package nextstep.shoppingcart.ui.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,13 +22,10 @@ import nextstep.signup.R
 @Composable
 fun ProductItem(
     product: Product,
-    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier =
-        Modifier.clickable {
-            onClick()
-        },
+        modifier = modifier,
     ) {
         ProductImage(
             product = product,
@@ -38,7 +34,7 @@ fun ProductItem(
                 .aspectRatio(1f),
             contentScale = ContentScale.Crop
         )
-        
+
         Text(
             text = product.name,
             modifier = Modifier.padding(start = 4.dp, end = 4.dp, top = 8.dp),
@@ -60,6 +56,6 @@ fun ProductItem(
 @Preview(showBackground = true)
 fun ProductItemPreview() {
     ShoppingCartTheme {
-        ProductItem(product = products.first(), onClick = {})
+        ProductItem(product = products.first())
     }
 }

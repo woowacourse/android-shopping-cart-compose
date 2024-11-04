@@ -23,6 +23,7 @@ import nextstep.signup.R
 
 @Composable
 fun QuantityControl(
+    modifier: Modifier = Modifier,
     quantity: Int,
     minusQuantity: () -> Unit,
     plusQuantity: () -> Unit,
@@ -34,7 +35,7 @@ fun QuantityControl(
             Icon(
                 painter = painterResource(R.drawable.ic_minus),
                 contentDescription = stringResource(R.string.minus_quantity),
-                modifier = Modifier.size(42.dp)
+                modifier = modifier
             )
         }
 
@@ -61,6 +62,7 @@ fun QuantityControl(
 fun QuantityAdjusterPreview() {
     ShoppingCartTheme {
         QuantityControl(
+            modifier = Modifier.size(42.dp),
             quantity = 1,
             minusQuantity = {},
             plusQuantity = {},

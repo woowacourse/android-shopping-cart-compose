@@ -1,5 +1,6 @@
 package nextstep.shoppingcart.ui.productlist
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -76,7 +77,7 @@ fun ProductListScreen(
             items(products) { product ->
                 ProductItem(
                     product = product,
-                    onClick = {
+                    modifier = Modifier.clickable {
                         navigateToProductDetail(product.id)
                     },
                 )

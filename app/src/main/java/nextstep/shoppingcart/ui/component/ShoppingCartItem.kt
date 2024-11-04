@@ -101,6 +101,7 @@ fun ShoppingCartItem(
                 )
 
                 QuantityControl(
+                    modifier = Modifier.size(42.dp),
                     quantity = shoppingCartProduct.quantity,
                     minusQuantity = { action(MinusQuantity(product = shoppingCartProduct.product)) },
                     plusQuantity = { action(PlusQuantity(product = shoppingCartProduct.product)) },
