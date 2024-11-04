@@ -5,7 +5,7 @@ import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import nextstep.shoppingcart.data.repository.DefaultShoppingCartRepository
+import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
 import nextstep.shoppingcart.domain.model.Product
 import org.junit.Before
 import org.junit.Rule
@@ -39,12 +39,12 @@ class ShoppingCartScreenTest {
 
     @Before
     fun setUp() {
-        DefaultShoppingCartRepository.removeProduct(product = productA)
-        DefaultShoppingCartRepository.removeProduct(product = productB)
+        DatabaseShoppingCartRepository.removeProduct(product = productA)
+        DatabaseShoppingCartRepository.removeProduct(product = productB)
 
-        DefaultShoppingCartRepository.addProduct(product = productA)
-        DefaultShoppingCartRepository.addProduct(product = productA)
-        DefaultShoppingCartRepository.addProduct(product = productB)
+        DatabaseShoppingCartRepository.addProduct(product = productA)
+        DatabaseShoppingCartRepository.addProduct(product = productA)
+        DatabaseShoppingCartRepository.addProduct(product = productB)
 
         composeTestRule.setContent {
             ShoppingCartScreen(navigateToBack = {})

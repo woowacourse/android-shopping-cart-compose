@@ -21,10 +21,6 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -33,16 +29,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.data.repository.DefaultShoppingCartRepository
+import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
+import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct
-import nextstep.shoppingcart.domain.model.ShoppingCartProducts
-import nextstep.shoppingcart.domain.model.products
 import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
 import nextstep.shoppingcart.ui.component.ProductImage
 import nextstep.shoppingcart.ui.component.QuantityControl
 import nextstep.shoppingcart.ui.component.RectangleButton
-import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartAction.MinusQuantity
-import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartAction.PlusQuantity
+import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartAction.AddProduct
+import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartAction.DecreaseProductQuantity
 import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartAction.RemoveProduct
 import nextstep.shoppingcart.ui.theme.Gray10
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
@@ -50,14 +45,7 @@ import nextstep.signup.R
 
 @Composable
 fun ShoppingCartScreen(navigateToBack: () -> Unit) {
-    val listState = rememberLazyListState()
-    var shoppingCartProducts by rememberSaveable {
-        mutableStateOf(
-            ShoppingCartProducts(
-                items = DefaultShoppingCartRepository.shoppingCartProducts,
-            ),
-        )
-    }
+    val shoppingCartProducts = DatabaseShoppingCartRepository.shoppingCartProducts
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -77,23 +65,27 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             LazyColumn(
-                state = listState,
+                state = rememberLazyListState(),
             ) {
                 items(
-                    items = shoppingCartProducts.items,
-                    key = { item -> item.product.id },
+                    items = shoppingCartProducts,
+                    key = { shoppingCartProduct -> shoppingCartProduct.id },
                 ) { shoppingCartProduct ->
                     ShoppingCartItem(shoppingCartProduct = shoppingCartProduct, action = { action ->
-                        handleShoppingCartAction(action, shoppingCartProduct) { updatedProducts ->
-                            shoppingCartProducts =
-                                shoppingCartProducts.copy(items = updatedProducts)
-                        }
+                        handleShoppingCartAction(
+                            action = action,
+                            shoppingCartProduct = shoppingCartProduct,
+                        )
                     })
                 }
             }
 
             RectangleButton(
-                text = stringResource(R.string.order_price, shoppingCartProducts.totalPrice),
+                text =
+                    stringResource(
+                        R.string.order_price,
+                        DatabaseShoppingCartRepository.totalPrice,
+                    ),
                 modifier =
                     Modifier
                         .fillMaxWidth()
@@ -107,19 +99,17 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
 private fun handleShoppingCartAction(
     action: ShoppingCartAction,
     shoppingCartProduct: ShoppingCartProduct,
-    updateShoppingCartProducts: (List<ShoppingCartProduct>) -> Unit,
 ) {
     when (action) {
-        is PlusQuantity ->
-            DefaultShoppingCartRepository.addProduct(shoppingCartProduct.product)
+        is AddProduct ->
+            DatabaseShoppingCartRepository.addProduct(shoppingCartProduct.product)
 
-        is MinusQuantity ->
-            DefaultShoppingCartRepository.decreaseProductQuantity(shoppingCartProduct.product)
+        is DecreaseProductQuantity ->
+            DatabaseShoppingCartRepository.decreaseProductQuantity(shoppingCartProduct.product)
 
         is RemoveProduct ->
-            DefaultShoppingCartRepository.removeProduct(shoppingCartProduct.product)
+            DatabaseShoppingCartRepository.removeProduct(shoppingCartProduct.product)
     }
-    updateShoppingCartProducts(DefaultShoppingCartRepository.shoppingCartProducts)
 }
 
 @Composable
@@ -198,10 +188,10 @@ private fun ShoppingCartItem(
                 )
 
                 QuantityControl(
-                    modifier = Modifier.size(42.dp),
                     quantity = shoppingCartProduct.quantity,
-                    minusQuantity = { action(MinusQuantity(product = shoppingCartProduct.product)) },
-                    plusQuantity = { action(PlusQuantity(product = shoppingCartProduct.product)) },
+                    minusQuantity = { action(DecreaseProductQuantity(product = shoppingCartProduct.product)) },
+                    plusQuantity = { action(AddProduct(product = shoppingCartProduct.product)) },
+                    modifier = Modifier.size(width = 126.dp, height = 42.dp),
                 )
             }
         }
@@ -215,7 +205,16 @@ private fun ShoppingCartItemPreview() {
         ShoppingCartItem(
             shoppingCartProduct =
                 ShoppingCartProduct(
-                    products.first(),
+                    id = 0L,
+                    Product(
+                        id = 0L,
+                        imageUrl =
+                            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
+                                "%2FMjAyNDAyMjNfMjkg%2FMDAxNzA4NjE1NTg1ODg5.ZFPHZ3Q2HzH7GcYA1_Jl0lsIdvAnzUF2h6Qd6bgDLHkg." +
+                                "_7ffkgE45HXRVgX2Bywc3B320_tuatBww5y1hS4xjWQg.JPEG%2FIMG_5278.jpg&type=sc960_832",
+                        name = "대전 장인약과",
+                        price = 12000,
+                    ),
                     quantity = 2,
                 ),
             action = {},

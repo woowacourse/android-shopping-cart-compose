@@ -5,7 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import nextstep.shoppingcart.domain.model.products
+import nextstep.shoppingcart.data.repository.DatabaseProductRepository
+import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartActivity
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
@@ -19,10 +20,8 @@ class ProductDetailActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ShoppingCartTheme {
-                val product =
-                    products.find { product ->
-                        product.id == productId
-                    }
+                val product: Product =
+                    DatabaseProductRepository.findProductById(productId)
                         ?: throw IllegalArgumentException(resources.getString(R.string.product_not_found))
 
                 ProductDetailScreen(

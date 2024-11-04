@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.data.repository.DefaultShoppingCartRepository
+import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
 import nextstep.shoppingcart.ui.component.ProductImage
@@ -98,7 +98,7 @@ fun ProductDetailScreen(
                         .fillMaxWidth()
                         .height(54.dp),
                 onClick = {
-                    DefaultShoppingCartRepository.addProduct(product = product)
+                    DatabaseShoppingCartRepository.addProduct(product = product)
                     navigateToShoppingCart()
                 },
             )
