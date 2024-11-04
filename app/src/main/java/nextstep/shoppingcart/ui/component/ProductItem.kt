@@ -29,10 +29,11 @@ fun ProductItem(
     ) {
         ProductImage(
             product = product,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f),
-            contentScale = ContentScale.Crop
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+            contentScale = ContentScale.Crop,
         )
 
         Text(
@@ -54,7 +55,7 @@ fun ProductItem(
 
 @Composable
 @Preview(showBackground = true)
-fun ProductItemPreview() {
+private fun ProductItemPreview() {
     ShoppingCartTheme {
         ProductItem(product = products.first())
     }

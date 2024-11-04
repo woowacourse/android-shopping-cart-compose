@@ -35,7 +35,7 @@ fun QuantityControl(
             Icon(
                 painter = painterResource(R.drawable.ic_minus),
                 contentDescription = stringResource(R.string.minus_quantity),
-                modifier = modifier
+                modifier = modifier,
             )
         }
 
@@ -44,14 +44,14 @@ fun QuantityControl(
             modifier = Modifier.width(42.dp),
             fontSize = 22.sp,
             fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         IconButton(onClick = { plusQuantity() }) {
             Icon(
                 imageVector = Icons.Filled.Add,
                 contentDescription = stringResource(R.string.plus_quantity),
-                modifier = Modifier.size(42.dp)
+                modifier = Modifier.size(42.dp),
             )
         }
     }
@@ -59,7 +59,7 @@ fun QuantityControl(
 
 @Composable
 @Preview(showBackground = true)
-fun QuantityAdjusterPreview() {
+private fun QuantityAdjusterPreview() {
     ShoppingCartTheme {
         QuantityControl(
             modifier = Modifier.size(42.dp),

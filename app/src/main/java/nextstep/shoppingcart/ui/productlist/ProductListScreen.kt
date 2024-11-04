@@ -77,9 +77,10 @@ fun ProductListScreen(
             items(products) { product ->
                 ProductItem(
                     product = product,
-                    modifier = Modifier.clickable {
-                        navigateToProductDetail(product.id)
-                    },
+                    modifier =
+                        Modifier.clickable {
+                            navigateToProductDetail(product.id)
+                        },
                 )
             }
         }
@@ -88,7 +89,7 @@ fun ProductListScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun ProductListScreenPreView() {
+private fun ProductListScreenPreView() {
     ShoppingCartTheme {
         ProductListScreen(navigateToProductDetail = {}, navigateToShoppingCart = {})
     }

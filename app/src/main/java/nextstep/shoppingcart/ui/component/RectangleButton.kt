@@ -39,11 +39,15 @@ fun RectangleButton(
 
 @Composable
 @Preview(showBackground = true)
-fun RectangleButtonPreview() {
+private fun RectangleButtonPreview() {
     ShoppingCartTheme {
-        RectangleButton(text = "RectangleButton", modifier =
-        Modifier
-            .fillMaxWidth()
-            .height(54.dp), onClick = {})
+        RectangleButton(
+            text = "RectangleButton",
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(54.dp),
+            onClick = {},
+        )
     }
 }
