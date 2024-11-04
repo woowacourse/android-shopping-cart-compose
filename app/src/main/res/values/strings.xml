@@ -10,5 +10,5 @@
     <string name="order_price">주문하기(%,d원)</string>
     <string name="price_format">%,d원</string>
 
-    <string name="invalid_product_id">"유효하지 않은 제품 ID입니다."</string>
+    <string name="invalid_product_id">유효하지 않은 제품 ID입니다.</string>
 </resources>
