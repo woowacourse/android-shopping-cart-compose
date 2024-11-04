@@ -3,12 +3,13 @@ package nextstep.shoppingcart.data.repository
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct.Companion.MIN_QUANTITY
+import nextstep.shoppingcart.domain.repository.ShoppingCartRepository
 
-object DefaultShoppingCartRepository {
+object DefaultShoppingCartRepository : ShoppingCartRepository {
     private val _shoppingCartProducts: MutableList<ShoppingCartProduct> = mutableListOf()
     val shoppingCartProducts: List<ShoppingCartProduct> get() = _shoppingCartProducts.toList()
 
-    fun addProduct(product: Product) {
+    override fun addProduct(product: Product) {
         val shoppingCartProduct =
             _shoppingCartProducts.find { shoppingCartProduct ->
                 shoppingCartProduct.product == product
@@ -22,7 +23,7 @@ object DefaultShoppingCartRepository {
         }
     }
 
-    fun decreaseProductQuantity(product: Product) {
+    override fun decreaseProductQuantity(product: Product) {
         val shoppingCartProduct =
             _shoppingCartProducts.find { shoppingCartProduct ->
                 shoppingCartProduct.product == product
@@ -38,7 +39,7 @@ object DefaultShoppingCartRepository {
         }
     }
 
-    fun removeProduct(product: Product) {
+    override fun removeProduct(product: Product) {
         _shoppingCartProducts.removeIf { shoppingCartProduct ->
             shoppingCartProduct.product == product
         }
