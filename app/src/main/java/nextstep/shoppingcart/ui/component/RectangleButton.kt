@@ -19,6 +19,7 @@ import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 fun RectangleButton(
     text: String,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Button(
@@ -26,6 +27,7 @@ fun RectangleButton(
             onClick()
         },
         modifier = modifier,
+        enabled = enabled,
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(Blue50),
     ) {
@@ -47,6 +49,7 @@ private fun RectangleButtonPreview() {
                 Modifier
                     .fillMaxWidth()
                     .height(54.dp),
+            enabled = true,
             onClick = {},
         )
     }

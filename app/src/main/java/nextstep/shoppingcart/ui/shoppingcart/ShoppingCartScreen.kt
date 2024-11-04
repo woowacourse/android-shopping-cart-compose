@@ -19,8 +19,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -29,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct
@@ -45,6 +51,10 @@ import nextstep.signup.R
 
 @Composable
 fun ShoppingCartScreen(navigateToBack: () -> Unit) {
+    val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarMessage = stringResource(R.string.shopping_cart_order_completed)
+
     val shoppingCartProducts = DatabaseShoppingCartRepository.shoppingCartProducts
 
     Scaffold(
@@ -56,6 +66,7 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
                 navigateToBack = navigateToBack,
             )
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { contentPadding ->
         Column(
             modifier =
@@ -90,7 +101,16 @@ fun ShoppingCartScreen(navigateToBack: () -> Unit) {
                     Modifier
                         .fillMaxWidth()
                         .height(54.dp),
-                onClick = {},
+                enabled = shoppingCartProducts.isNotEmpty(),
+                onClick = {
+                    DatabaseShoppingCartRepository.clearProducts()
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = snackbarMessage,
+                            duration = SnackbarDuration.Short,
+                        )
+                    }
+                },
             )
         }
     }

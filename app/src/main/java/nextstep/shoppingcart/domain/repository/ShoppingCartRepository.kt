@@ -9,5 +9,7 @@ interface ShoppingCartRepository {
 
     fun removeProduct(product: Product)
 
+    fun clearProducts()
+
     fun findQuantityByProduct(product: Product): Int
 }

@@ -10,5 +10,6 @@
     <string name="order_price">주문하기(%,d원)</string>
     <string name="price_format">%,d원</string>
 
+    <string name="shopping_cart_order_completed">상품 주문을 완료했어요!</string>
     <string name="product_not_found">상품의 정보를 찾지 못했어요!</string>
 </resources>

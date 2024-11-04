@@ -56,6 +56,10 @@ object DatabaseShoppingCartRepository : ShoppingCartRepository {
         }
     }
 
+    override fun clearProducts() {
+        _shoppingCartProducts.clear()
+    }
+
     override fun findQuantityByProduct(product: Product): Int {
         return _shoppingCartProducts.find { shoppingCartProduct -> shoppingCartProduct.product == product }?.quantity
             ?: 0
