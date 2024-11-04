@@ -20,10 +20,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
 import nextstep.shoppingcart.data.repository.DefaultShoppingCartRepository
 import nextstep.shoppingcart.domain.model.products
 import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
+import nextstep.shoppingcart.ui.component.ProductImage
 import nextstep.shoppingcart.ui.component.RectangleButton
 import nextstep.shoppingcart.ui.theme.Gray10
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
@@ -51,18 +51,16 @@ fun ProductDetailScreen(
     ) { contentPadding ->
         Column(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding),
+            Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
         ) {
-            AsyncImage(
-                model = product.imageUrl,
-                contentDescription = product.name,
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
-                contentScale = ContentScale.Crop,
+            ProductImage(
+                product = product,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentScale = ContentScale.Crop
             )
 
             Text(

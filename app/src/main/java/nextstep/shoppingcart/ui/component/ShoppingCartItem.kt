@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct
 import nextstep.shoppingcart.domain.model.products
 import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartAction
@@ -41,17 +40,17 @@ fun ShoppingCartItem(
 ) {
     OutlinedCard(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 18.dp, vertical = 16.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 18.dp, vertical = 16.dp),
         shape = RoundedCornerShape(4.dp),
         border = BorderStroke(1.dp, Gray10),
     ) {
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(start = 18.dp, end = 18.dp, top = 18.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 18.dp, end = 18.dp, top = 18.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -76,29 +75,28 @@ fun ShoppingCartItem(
 
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = 18.dp,
-                        end = 18.dp,
-                        top = 6.dp,
-                        bottom = 18.dp,
-                    ),
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 18.dp,
+                    end = 18.dp,
+                    top = 6.dp,
+                    bottom = 18.dp,
+                ),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            AsyncImage(
-                model = shoppingCartProduct.product.imageUrl,
-                contentDescription = shoppingCartProduct.product.name,
+            ProductImage(
+                product = shoppingCartProduct.product,
                 modifier = Modifier.size(width = 136.dp, height = 84.dp),
-                contentScale = ContentScale.FillWidth,
+                contentScale = ContentScale.FillWidth
             )
 
             Column(modifier = Modifier.align(Alignment.Bottom)) {
                 Text(
                     text = stringResource(R.string.price_format, shoppingCartProduct.totalPrice),
                     modifier =
-                        Modifier
-                            .align(Alignment.End),
+                    Modifier
+                        .align(Alignment.End),
                     fontSize = 16.sp,
                 )
 
@@ -118,10 +116,10 @@ fun ShoppingCartItemPreview() {
     ShoppingCartTheme {
         ShoppingCartItem(
             shoppingCartProduct =
-                ShoppingCartProduct(
-                    products.first(),
-                    quantity = 2,
-                ),
+            ShoppingCartProduct(
+                products.first(),
+                quantity = 2,
+            ),
             action = {},
         )
     }
