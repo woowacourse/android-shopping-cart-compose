@@ -7,5 +7,5 @@ class CachedProductRepository(
 ) : ProductRepository {
     override fun fetchProducts(): List<Product> = productDataSource.fetchProducts()
 
-    override fun getProduct(id: Long): Product = productDataSource.findProduct(id)
+    override fun findProduct(id: Long): Product = productDataSource.findProduct(id)
 }

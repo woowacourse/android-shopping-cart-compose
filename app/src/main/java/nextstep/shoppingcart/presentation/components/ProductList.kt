@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ import nextstep.shoppingcart.domain.model.Product
 @Composable
 fun ProductList(
     items: List<Product>,
+    onItemClick: (Long) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
@@ -28,36 +30,52 @@ fun ProductList(
         modifier = Modifier.padding(12.dp),
     ) {
         items(items) { item ->
-            Item(product = item)
+            Item(
+                product = item,
+                onItemClick = onItemClick,
+            )
         }
     }
 }
 
 @Composable
-fun Item(product: Product) {
-    Column(
-        modifier = Modifier.padding(top = 20.dp, start = 6.dp, end = 6.dp),
+fun Item(
+    product: Product,
+    onItemClick: (Long) -> Unit,
+) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { onItemClick(product.id) },
     ) {
-        AsyncImage(
-            model = product.imageUrl,
-            contentDescription = product.name,
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f),
-        )
-        Text(
-            text = product.name,
-            modifier = Modifier.padding(top = 8.dp),
-            style =
-                TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                ),
-        )
-        Text(text = product.price.toString(), style = TextStyle(
-            fontSize = 16.sp,
-        ), modifier = Modifier.padding(top = 2.dp))
+        Column(
+            modifier = Modifier.padding(top = 20.dp, start = 6.dp, end = 6.dp),
+        ) {
+            AsyncImage(
+                model = product.imageUrl,
+                contentDescription = product.name,
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f),
+            )
+            Text(
+                text = product.name,
+                modifier = Modifier.padding(top = 8.dp),
+                style =
+                    TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                    ),
+            )
+            Text(
+                text = product.price.toString(),
+                style =
+                    TextStyle(
+                        fontSize = 16.sp,
+                    ),
+                modifier = Modifier.padding(top = 2.dp),
+            )
+        }
     }
 }
 

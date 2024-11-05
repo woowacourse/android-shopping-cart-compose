@@ -11,14 +11,17 @@ import nextstep.shoppingcart.domain.model.Product
 @Composable
 fun ListLayout(
     products: List<Product>,
+    action: () -> Unit = {},
+    onItemClick: (Long) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
     ) {
-        TopBar(modifier = Modifier)
+        TopBarWithAction(modifier = Modifier, action = action)
         ProductList(
             items = products,
+            onItemClick = onItemClick,
             modifier = Modifier.padding(top = 18.dp, start = 13.dp, end = 13.dp),
         )
     }

@@ -8,6 +8,6 @@ data class Product(
     val isAddedToCart: Boolean = false,
 ) {
     companion object {
-        val NULL_PRODUCT = Product(-1, "", -1, "", false)
+        val NULL_PRODUCT = Product(-1, "Null Product", -1000000, "", false)
     }
 }
