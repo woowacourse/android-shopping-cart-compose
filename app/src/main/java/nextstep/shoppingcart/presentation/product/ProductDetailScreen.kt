@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nextstep.shoppingcart.R
-import nextstep.shoppingcart.presentation.ui.component.ShoppingButton
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.presentation.ui.component.ShoppingButton
 import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 
 @Composable
@@ -55,18 +55,15 @@ fun ProductDetailScreen(
             }
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            if (product == null) {
-                ProductDetailErrorContent(Modifier.padding(innerPadding))
-            } else {
-                ProductDetailContent(
-                    product = product,
-                )
-            }
+        if (product == null) {
+            ProductDetailErrorContent(
+                modifier = Modifier.padding(innerPadding)
+            )
+        } else {
+            ProductDetailContent(
+                product = product,
+                modifier = Modifier.padding(innerPadding)
+            )
         }
     }
 }
