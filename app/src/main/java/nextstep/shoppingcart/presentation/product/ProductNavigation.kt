@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.serialization.Serializable
 import nextstep.shoppingcart.domain.repository.CartRepository
 import nextstep.shoppingcart.domain.repository.ProductRepository
+import nextstep.shoppingcart.presentation.product.model.ProductDetailUiState
 import nextstep.shoppingcart.presentation.product.model.ProductUiModel
 import nextstep.shoppingcart.presentation.product.model.ProductUiState
 
@@ -69,24 +70,32 @@ fun NavGraphBuilder.productGraph(
                 onProductMinus = onProductMinus,
             )
         }
+
         composable<ProductRoute.Detail> { backStackEntry ->
             val profile: ProductRoute.Detail = backStackEntry.toRoute()
-            val product by remember(profile.productId) {
-                mutableStateOf(
-                    ProductRepository.get().productBy(
-                        profile.productId
-                    )
+            val productState by remember(profile.productId) {
+                val product = ProductRepository.get().productBy(
+                    profile.productId
                 )
+                val productState = if (product == null) ProductDetailUiState.Error
+                else ProductDetailUiState.Success(product)
+
+                mutableStateOf(productState)
             }
             val cartRepository = CartRepository.get()
-            val onCartAdd = remember(product) {
+            val onCartAdd = remember(productState) {
                 {
-                    product?.let { cartRepository.addProduct(it.id, count = 1) }
-                    navigateToCart()
+                    when (val currentProductState = productState) {
+                        is ProductDetailUiState.Success -> {
+                            cartRepository.addProduct(currentProductState.product.id, 1)
+                            navigateToCart()
+                        }
+                        is ProductDetailUiState.Error -> {}
+                    }
                 }
             }
             ProductDetailScreen(
-                product = product,
+                productState = productState,
                 onBack = onBack,
                 onCartAdd = onCartAdd
             )

@@ -4,7 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import nextstep.shoppingcart.domain.model.Product
-import nextstep.shoppingcart.presentation.product.ProductDetailScreen
+import nextstep.shoppingcart.presentation.product.model.ProductDetailUiState
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,7 +17,14 @@ class ProductDetailScreenTest {
         composeTestRule
             .setContent {
                 ProductDetailScreen(
-                    product = Product(id = 1L, imageUrl = "testUrl", name = "오둥이", price = 1_000),
+                    productState = ProductDetailUiState.Success(
+                        Product(
+                            id = 1L,
+                            imageUrl = "testUrl",
+                            name = "오둥이",
+                            price = 1_000
+                        )
+                    ),
                     onBack = {},
                     onCartAdd = {}
                 )
@@ -32,7 +39,14 @@ class ProductDetailScreenTest {
         composeTestRule
             .setContent {
                 ProductDetailScreen(
-                    product = Product(id = 1L, imageUrl = "testUrl", name = "오둥이", price = 1_000),
+                    productState = ProductDetailUiState.Success(
+                        Product(
+                            id = 1L,
+                            imageUrl = "testUrl",
+                            name = "오둥이",
+                            price = 1_000
+                        )
+                    ),
                     onBack = {},
                     onCartAdd = {}
                 )
@@ -47,7 +61,7 @@ class ProductDetailScreenTest {
         composeTestRule
             .setContent {
                 ProductDetailScreen(
-                    product = null,
+                    productState = ProductDetailUiState.Error,
                     onBack = {},
                     onCartAdd = {}
                 )

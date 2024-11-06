@@ -28,13 +28,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import nextstep.shoppingcart.R
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.presentation.product.model.ProductDetailUiState
 import nextstep.shoppingcart.presentation.ui.component.ProductImage
 import nextstep.shoppingcart.presentation.ui.component.ShoppingButton
 import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 
 @Composable
 fun ProductDetailScreen(
-    product: Product?,
+    productState: ProductDetailUiState,
     onBack: () -> Unit,
     onCartAdd: () -> Unit
 ) {
@@ -45,25 +46,36 @@ fun ProductDetailScreen(
             )
         },
         bottomBar = {
-            if (product != null) {
-                ShoppingButton(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    text = stringResource(id = R.string.product_detail_add_cart_button),
-                    onClick = onCartAdd
-                )
+            when (productState) {
+                is ProductDetailUiState.Error -> Unit
+                is ProductDetailUiState.Success -> {
+                    ShoppingButton(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        text = stringResource(id = R.string.product_detail_add_cart_button),
+                        onClick = onCartAdd
+                    )
+                }
             }
         }
     ) { innerPadding ->
-        if (product == null) {
-            ProductDetailErrorContent(
-                modifier = Modifier.padding(innerPadding)
-            )
-        } else {
-            ProductDetailContent(
-                product = product,
-                modifier = Modifier.padding(innerPadding)
-            )
+        when (productState) {
+            is ProductDetailUiState.Error -> {
+                ProductDetailErrorContent(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                )
+            }
+
+            is ProductDetailUiState.Success -> {
+                ProductDetailContent(
+                    product = productState.product,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                )
+            }
         }
     }
 }
@@ -94,7 +106,7 @@ private fun ProductDetailContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ProductImage(
@@ -112,7 +124,7 @@ private fun ProductDetailContent(
 @Composable
 private fun ProductDetailErrorContent(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -164,11 +176,13 @@ private fun ProductPrice(
 private fun ProductDetailScreenPreview() {
     ShoppingCartTheme {
         ProductDetailScreen(
-            product = Product(
-                id = 1,
-                name = "오둥이",
-                price = 1000,
-                imageUrl = "https://example.com/image.jpg"
+            productState = ProductDetailUiState.Success(
+                Product(
+                    id = 1,
+                    name = "오둥이",
+                    price = 1000,
+                    imageUrl = "https://example.com/image.jpg"
+                )
             ),
             onBack = {},
             onCartAdd = {}
@@ -181,7 +195,7 @@ private fun ProductDetailScreenPreview() {
 private fun ProductDetailErrorScreenPreview() {
     ShoppingCartTheme {
         ProductDetailScreen(
-            product = null,
+            productState = ProductDetailUiState.Error,
             onBack = {},
             onCartAdd = {}
         )
