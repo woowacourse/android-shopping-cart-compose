@@ -1,14 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.navigation.safe.args)
 }
 
 android {
-    namespace = "nextstep.signup"
+    namespace = "nextstep.shoppingcart"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "nextstep.signup"
+        applicationId = "nextstep.shoppingcart"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -50,7 +52,8 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.kotlin.serialization.json)
+    implementation(libs.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -59,11 +62,13 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.coil.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.navigation.compose.test)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
