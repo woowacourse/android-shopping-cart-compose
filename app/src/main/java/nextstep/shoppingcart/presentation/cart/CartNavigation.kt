@@ -28,17 +28,22 @@ fun NavGraphBuilder.cartScreen(
                 cartProduct.totalPrice
             }
         }
-        val onCartProductMinus = remember {
+        val onCartProductMinus = remember(cartRepository) {
             { productId: Long ->
                 cartRepository.removeProduct(productId, count = 1)
             }
         }
-        val onCartProductPlus = remember {
+        val onCartProductPlus = remember(cartRepository) {
             { productId: Long ->
                 cartRepository.addProduct(productId, count = 1)
             }
         }
-        val onOrder = remember {
+        val onCartProductRemove = remember(cartRepository) {
+            { productId: Long ->
+                cartRepository.clearProduct(productId)
+            }
+        }
+        val onOrder = remember(cartRepository) {
             {
                 cartRepository.clear()
             }
@@ -50,7 +55,7 @@ fun NavGraphBuilder.cartScreen(
             onOrder = onOrder,
             onCartProductPlus = onCartProductPlus,
             onCartProductMinus = onCartProductMinus,
-            onCartProductRemove = cartRepository::clearProduct,
+            onCartProductRemove = onCartProductRemove,
         )
     }
 }
