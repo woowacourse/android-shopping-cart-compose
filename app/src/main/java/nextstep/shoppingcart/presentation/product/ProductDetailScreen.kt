@@ -3,7 +3,6 @@ package nextstep.shoppingcart.presentation.product
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,9 +25,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import nextstep.shoppingcart.R
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.presentation.ui.component.ProductImage
 import nextstep.shoppingcart.presentation.ui.component.ShoppingButton
 import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 
@@ -117,19 +116,6 @@ private fun ProductDetailErrorContent(modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.error
         )
     }
-}
-
-@Composable
-private fun ProductImage(
-    imageUrl: String
-) {
-    AsyncImage(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1f),
-        model = imageUrl,
-        contentDescription = stringResource(id = R.string.product_content_description)
-    )
 }
 
 @Composable
