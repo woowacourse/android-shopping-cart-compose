@@ -3,7 +3,6 @@ package nextstep.shoppingcart.presentation.product.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -70,6 +68,7 @@ internal fun ProductItem(
             ProductItemCounter(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
+                    .clickable(enabled = false, onClick = {})
                     .padding(4.dp),
                 count = count,
                 onProductPlus = { onProductPlus(product.id) },
@@ -100,9 +99,7 @@ private fun ProductItemCounter(
     onProductMinus: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier.pointerInput(Unit) {
-        detectTapGestures {}
-    }) {
+    Box(modifier = modifier) {
         if (count == 0) {
             PlusButton(
                 modifier = Modifier
