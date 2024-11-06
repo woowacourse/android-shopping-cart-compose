@@ -3,6 +3,7 @@ package nextstep.shoppingcart.presentation.product
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -96,7 +97,12 @@ private fun ProductDetailContent(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        ProductImage(imageUrl = product.imageUrl)
+        ProductImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f),
+            imageUrl = product.imageUrl
+        )
         ProductName(name = product.name)
         HorizontalDivider(Modifier.height(1.dp))
         ProductPrice(price = product.price)
