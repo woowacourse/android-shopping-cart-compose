@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Shopping Cart</string>
+
+    <!--상품 목록-->
+    <string name="shopping_title">상품 목록</string>
+
+    <!--상품 상세-->
+    <string name="product_detail_title">상품 상세</string>
+    <string name="price">금액</string>
+
+    <!--장바구니-->
+    <string name="shopping_cart_title">장바구니</string>
+    <string name="order_title">주문하기(%s)</string>
+    <string name="increment">수량 추가</string>
+    <string name="decremented">수량 감소</string>
+    <string name="close">상품 제거</string>
+
+
+    <!--공통-->
+    <string name="price_format_kor"> %,d원</string>
+
 </resources>
