@@ -63,7 +63,7 @@ internal fun ProductItem(
                         shape = RoundedCornerShape(16.dp)
                     ),
                 imageUrl = product.imageUrl,
-                contentDescription = "상품 이미지",
+                contentDescription = stringResource(id = R.string.product_image_content_description),
             )
             ProductItemCounter(
                 modifier = Modifier

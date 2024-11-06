@@ -26,10 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import nextstep.shoppingcart.R
-import nextstep.shoppingcart.presentation.ui.component.Counter
-import nextstep.shoppingcart.presentation.ui.component.ProductImage
 import nextstep.shoppingcart.domain.model.CartProduct
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.presentation.ui.component.Counter
+import nextstep.shoppingcart.presentation.ui.component.ProductImage
 import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 
 @Composable
@@ -62,7 +62,8 @@ internal fun CartProductItem(
                 onCartProductRemove(cartProduct.product.id)
             }) {
                 Icon(
-                    imageVector = Icons.Default.Clear, contentDescription = "상품 제거"
+                    imageVector = Icons.Default.Clear,
+                    contentDescription = stringResource(id = R.string.product_count_clear_button_content_description)
                 )
             }
         }
@@ -75,7 +76,7 @@ internal fun CartProductItem(
             ProductImage(
                 modifier = Modifier.size(136.dp, 84.dp),
                 imageUrl = cartProduct.product.imageUrl,
-                contentDescription = "상품 이미지"
+                contentDescription = stringResource(id = R.string.product_image_content_description)
             )
             Column(
                 horizontalAlignment = Alignment.End,

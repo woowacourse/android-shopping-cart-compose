@@ -68,7 +68,7 @@ fun CartScreen(
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "뒤로 가기"
+                            contentDescription = stringResource(id = R.string.back_button_content_description),
                         )
                     }
                 }
