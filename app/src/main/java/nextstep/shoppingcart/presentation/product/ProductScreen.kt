@@ -26,13 +26,14 @@ import androidx.compose.ui.unit.dp
 import nextstep.shoppingcart.R
 import nextstep.shoppingcart.presentation.product.component.ProductItem
 import nextstep.shoppingcart.presentation.product.model.ProductUiModel
+import nextstep.shoppingcart.presentation.product.model.ProductUiState
 import nextstep.shoppingcart.presentation.product.preview.ProductPreviewParameterProvider
 import nextstep.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductScreen(
-    products: List<ProductUiModel>,
+    productState: ProductUiState,
     onItemClick: (id: Long) -> Unit,
     onCartClick: () -> Unit,
     onProductPlus: (id: Long) -> Unit,
@@ -55,22 +56,24 @@ fun ProductScreen(
             )
         }
     ) { innerPadding ->
-        if (products.isEmpty()) {
-            ProductEmptyContent(
+        when (productState) {
+            is ProductUiState.Empty -> ProductEmptyContent(
                 modifier = Modifier
-                    .fillMaxSize()
                     .padding(innerPadding)
+                    .fillMaxSize()
+            )
+
+            is ProductUiState.Success -> ProductContent(
+                products = productState.products,
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .padding(start = 18.dp, end = 18.dp, bottom = 20.dp)
+                    .fillMaxSize(),
+                onItemClick = onItemClick,
+                onProductPlus = onProductPlus,
+                onProductMinus = onProductMinus
             )
         }
-        ProductContent(
-            products = products,
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(horizontal = 18.dp),
-            onItemClick = onItemClick,
-            onProductPlus = onProductPlus,
-            onProductMinus = onProductMinus
-        )
     }
 }
 
@@ -119,9 +122,9 @@ private fun ProductEmptyContent(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewProductScreen(
-    @PreviewParameter(ProductPreviewParameterProvider::class) products: List<ProductUiModel>
+    @PreviewParameter(ProductPreviewParameterProvider::class) productState: ProductUiState
 ) {
     ShoppingCartTheme {
-        ProductScreen(products, {}, {}, {}, {})
+        ProductScreen(productState, {}, {}, {}, {})
     }
 }

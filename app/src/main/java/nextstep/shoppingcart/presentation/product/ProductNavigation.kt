@@ -15,6 +15,7 @@ import kotlinx.serialization.Serializable
 import nextstep.shoppingcart.domain.repository.CartRepository
 import nextstep.shoppingcart.domain.repository.ProductRepository
 import nextstep.shoppingcart.presentation.product.model.ProductUiModel
+import nextstep.shoppingcart.presentation.product.model.ProductUiState
 
 fun NavController.navigateToProductDetail(
     productId: Long,
@@ -35,7 +36,7 @@ fun NavGraphBuilder.productGraph(
         composable<ProductRoute.Home> {
             val productRepository = ProductRepository.get()
             val cartRepository = CartRepository.get()
-            val products: List<ProductUiModel> by combine(
+            val uiState: ProductUiState by combine(
                 productRepository.products(),
                 cartRepository.cartProducts()
             ) { products, cartProducts ->
@@ -48,8 +49,12 @@ fun NavGraphBuilder.productGraph(
                         price = product.price,
                         count = cartProduct?.count ?: 0
                     )
+                }.let { products ->
+                    if (products.isEmpty()) ProductUiState.Empty
+                    else ProductUiState.Success(products)
                 }
-            }.collectAsStateWithLifecycle(emptyList())
+            }.collectAsStateWithLifecycle(ProductUiState.Empty)
+
             val onProductPlus: (Long) -> Unit = remember(cartRepository) {
                 { cartRepository.addProduct(it, 1) }
             }
@@ -57,7 +62,7 @@ fun NavGraphBuilder.productGraph(
                 { cartRepository.removeProduct(it, 1) }
             }
             ProductScreen(
-                products = products,
+                productState = uiState,
                 onCartClick = navigateToCart,
                 onItemClick = navigateToProductDetail,
                 onProductPlus = onProductPlus,
