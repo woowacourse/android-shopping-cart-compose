@@ -50,13 +50,18 @@ fun NavGraphBuilder.productGraph(
                     )
                 }
             }.collectAsStateWithLifecycle(emptyList())
-
+            val onProductPlus: (Long) -> Unit = remember(cartRepository) {
+                { cartRepository.addProduct(it, 1) }
+            }
+            val onProductMinus: (Long) -> Unit = remember(cartRepository) {
+                { cartRepository.removeProduct(it, 1) }
+            }
             ProductScreen(
                 products = products,
                 onCartClick = navigateToCart,
                 onItemClick = navigateToProductDetail,
-                onProductPlus = { cartRepository.addProduct(it, 1) },
-                onProductMinus = { cartRepository.removeProduct(it, 1) },
+                onProductPlus = onProductPlus,
+                onProductMinus = onProductMinus,
             )
         }
         composable<ProductRoute.Detail> { backStackEntry ->
