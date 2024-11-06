@@ -36,7 +36,6 @@ fun Counter(
     ) {
         IconButton(
             onClick = onMinus,
-            modifier = Modifier
         ) {
             Icon(
                 modifier = Modifier.size(iconSize),
