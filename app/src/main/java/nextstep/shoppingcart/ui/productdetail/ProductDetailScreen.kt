@@ -41,23 +41,23 @@ fun ProductDetailScreen(
         topBar = {
             BackNavigationTopAppBar(
                 title = stringResource(R.string.product_list),
-                modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
                 navigateToBack = navigateToBack,
+                modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
             )
         },
     ) { contentPadding ->
         Column(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding),
+            Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
         ) {
             ProductImage(
                 product = product,
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
                 contentScale = ContentScale.Crop,
             )
 
@@ -92,15 +92,15 @@ fun ProductDetailScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             RectangleButton(
-                text = stringResource(R.string.add_shopping_cart_product),
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(54.dp),
                 onClick = {
                     DatabaseShoppingCartRepository.addProduct(product = product)
                     navigateToShoppingCart()
                 },
+                text = stringResource(R.string.add_shopping_cart_product),
+                modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(54.dp),
             )
         }
     }
@@ -112,15 +112,15 @@ private fun ProductDetailScreenPreview() {
     ShoppingCartTheme {
         ProductDetailScreen(
             product =
-                Product(
-                    id = 0L,
-                    imageUrl =
-                        "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
-                            "%2FMjAyNDAyMjNfMjkg%2FMDAxNzA4NjE1NTg1ODg5.ZFPHZ3Q2HzH7GcYA1_Jl0lsIdvAnzUF2h6Qd6bgDLHkg." +
-                            "_7ffkgE45HXRVgX2Bywc3B320_tuatBww5y1hS4xjWQg.JPEG%2FIMG_5278.jpg&type=sc960_832",
-                    name = "대전 장인약과",
-                    price = 12000,
-                ),
+            Product(
+                id = 0L,
+                imageUrl =
+                "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
+                        "%2FMjAyNDAyMjNfMjkg%2FMDAxNzA4NjE1NTg1ODg5.ZFPHZ3Q2HzH7GcYA1_Jl0lsIdvAnzUF2h6Qd6bgDLHkg." +
+                        "_7ffkgE45HXRVgX2Bywc3B320_tuatBww5y1hS4xjWQg.JPEG%2FIMG_5278.jpg&type=sc960_832",
+                name = "대전 장인약과",
+                price = 12000,
+            ),
             navigateToBack = {},
             navigateToShoppingCart = {},
         )
