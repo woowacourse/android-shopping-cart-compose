@@ -6,7 +6,7 @@ import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct
 import nextstep.shoppingcart.domain.repository.ShoppingCartRepository
 
-object DatabaseShoppingCartRepository : ShoppingCartRepository {
+object ShoppingCartRepositoryImpl : ShoppingCartRepository {
     private val _shoppingCartProducts: SnapshotStateList<ShoppingCartProduct> = mutableStateListOf()
     val shoppingCartProducts: List<ShoppingCartProduct> get() = _shoppingCartProducts
 

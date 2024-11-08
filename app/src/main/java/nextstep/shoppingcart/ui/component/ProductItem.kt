@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
+import nextstep.shoppingcart.data.repository.ShoppingCartRepositoryImpl
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ProductUiModel
 import nextstep.shoppingcart.ui.productlist.ProductListAction
@@ -67,7 +67,7 @@ fun ProductItem(
                 )
             } else {
                 PlusButton(
-                    onClick = { DatabaseShoppingCartRepository.addProduct(product = item.product) },
+                    onClick = { ShoppingCartRepositoryImpl.addProduct(product = item.product) },
                     modifier =
                         Modifier
                             .padding(12.dp)

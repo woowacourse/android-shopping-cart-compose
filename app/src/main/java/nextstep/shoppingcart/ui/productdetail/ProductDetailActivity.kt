@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import nextstep.shoppingcart.data.repository.DatabaseProductRepository
+import nextstep.shoppingcart.data.repository.ProductRepositoryImpl
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartActivity
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
@@ -21,7 +21,7 @@ class ProductDetailActivity : ComponentActivity() {
         setContent {
             ShoppingCartTheme {
                 val product: Product =
-                    DatabaseProductRepository.findProductById(productId)
+                    ProductRepositoryImpl.findProductById(productId)
                         ?: throw IllegalArgumentException(resources.getString(R.string.product_not_found))
 
                 ProductDetailScreen(

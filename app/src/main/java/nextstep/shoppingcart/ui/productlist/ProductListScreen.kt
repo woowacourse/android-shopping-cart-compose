@@ -24,8 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.data.repository.DatabaseProductRepository
-import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
+import nextstep.shoppingcart.data.repository.ProductRepositoryImpl
+import nextstep.shoppingcart.data.repository.ShoppingCartRepositoryImpl
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ProductUiModel
 import nextstep.shoppingcart.ui.component.ProductItem
@@ -102,11 +102,11 @@ private fun handleProductListAction(
 ) {
     when (action) {
         is AddProduct -> {
-            DatabaseShoppingCartRepository.addProduct(product)
+            ShoppingCartRepositoryImpl.addProduct(product)
         }
 
         is DecreaseProductQuantity -> {
-            DatabaseShoppingCartRepository.decreaseProductQuantity(product)
+            ShoppingCartRepositoryImpl.decreaseProductQuantity(product)
         }
     }
 }
@@ -115,10 +115,10 @@ private fun handleProductListAction(
 @Preview(showBackground = true)
 private fun ProductListScreenPreView() {
     ShoppingCartTheme {
-        ProductListScreen(productItems = DatabaseProductRepository.products.map { product ->
+        ProductListScreen(productItems = ProductRepositoryImpl.products.map { product ->
             ProductUiModel(
                 product = product,
-                quantity = DatabaseShoppingCartRepository.findQuantityByProduct(product),
+                quantity = ShoppingCartRepositoryImpl.findQuantityByProduct(product),
             )
         }, navigateToProductDetail = {}, navigateToShoppingCart = {})
     }

@@ -35,7 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
-import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
+import nextstep.shoppingcart.data.repository.ShoppingCartRepositoryImpl
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct
 import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
@@ -94,7 +94,7 @@ fun ShoppingCartScreen(
 
             RectangleButton(
                 onClick = {
-                    DatabaseShoppingCartRepository.clearProducts()
+                    ShoppingCartRepositoryImpl.clearProducts()
                     coroutineScope.launch {
                         snackbarHostState.showSnackbar(
                             message = snackbarMessage,
@@ -105,7 +105,7 @@ fun ShoppingCartScreen(
                 text =
                 stringResource(
                     R.string.order_price,
-                    DatabaseShoppingCartRepository.totalPrice,
+                    ShoppingCartRepositoryImpl.totalPrice,
                 ),
                 modifier =
                 Modifier
@@ -123,13 +123,13 @@ private fun handleShoppingCartAction(
 ) {
     when (action) {
         is AddProduct ->
-            DatabaseShoppingCartRepository.addProduct(shoppingCartProduct.product)
+            ShoppingCartRepositoryImpl.addProduct(shoppingCartProduct.product)
 
         is DecreaseProductQuantity ->
-            DatabaseShoppingCartRepository.decreaseProductQuantity(shoppingCartProduct.product)
+            ShoppingCartRepositoryImpl.decreaseProductQuantity(shoppingCartProduct.product)
 
         is RemoveProduct ->
-            DatabaseShoppingCartRepository.removeProduct(shoppingCartProduct.product)
+            ShoppingCartRepositoryImpl.removeProduct(shoppingCartProduct.product)
     }
 }
 
@@ -138,7 +138,7 @@ private fun handleShoppingCartAction(
 private fun ShoppingCartScreenPreview() {
     ShoppingCartTheme {
         ShoppingCartScreen(
-            shoppingCartProducts = DatabaseShoppingCartRepository.shoppingCartProducts,
+            shoppingCartProducts = ShoppingCartRepositoryImpl.shoppingCartProducts,
             navigateToBack = {})
     }
 }

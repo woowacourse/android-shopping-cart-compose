@@ -3,8 +3,8 @@ package nextstep.shoppingcart.ui.productlist
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import nextstep.shoppingcart.data.repository.DatabaseProductRepository
-import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
+import nextstep.shoppingcart.data.repository.ProductRepositoryImpl
+import nextstep.shoppingcart.data.repository.ShoppingCartRepositoryImpl
 import nextstep.shoppingcart.domain.model.ProductUiModel
 import nextstep.shoppingcart.ui.productdetail.ProductDetailActivity
 import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartActivity
@@ -15,10 +15,10 @@ class ProductListActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val productItems: List<ProductUiModel> =
-                DatabaseProductRepository.products.map { product ->
+                ProductRepositoryImpl.products.map { product ->
                     ProductUiModel(
                         product = product,
-                        quantity = DatabaseShoppingCartRepository.findQuantityByProduct(product),
+                        quantity = ShoppingCartRepositoryImpl.findQuantityByProduct(product),
                     )
                 }
 

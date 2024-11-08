@@ -3,7 +3,7 @@ package nextstep.shoppingcart.data.repository
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.repository.ProductRepository
 
-object DatabaseProductRepository : ProductRepository {
+object ProductRepositoryImpl : ProductRepository {
     private val _products: List<Product> =
         listOf(
             Product(
