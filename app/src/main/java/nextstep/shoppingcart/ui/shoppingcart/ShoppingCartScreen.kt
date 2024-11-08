@@ -50,12 +50,13 @@ import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
 @Composable
-fun ShoppingCartScreen(navigateToBack: () -> Unit) {
+fun ShoppingCartScreen(
+    shoppingCartProducts: List<ShoppingCartProduct>,
+    navigateToBack: () -> Unit
+) {
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val snackbarMessage = stringResource(R.string.shopping_cart_order_completed)
-
-    val shoppingCartProducts = DatabaseShoppingCartRepository.shoppingCartProducts
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -136,7 +137,9 @@ private fun handleShoppingCartAction(
 @Preview(showBackground = true)
 private fun ShoppingCartScreenPreview() {
     ShoppingCartTheme {
-        ShoppingCartScreen(navigateToBack = {})
+        ShoppingCartScreen(
+            shoppingCartProducts = DatabaseShoppingCartRepository.shoppingCartProducts,
+            navigateToBack = {})
     }
 }
 

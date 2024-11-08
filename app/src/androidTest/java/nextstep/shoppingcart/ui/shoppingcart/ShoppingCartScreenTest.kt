@@ -1,12 +1,14 @@
 package nextstep.shoppingcart.ui.shoppingcart
 
+import androidx.compose.ui.test.isDisplayed
+import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import nextstep.shoppingcart.data.repository.DatabaseShoppingCartRepository
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.domain.model.ShoppingCartProduct
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,7 +21,7 @@ class ShoppingCartScreenTest {
         Product(
             id = 0L,
             imageUrl =
-                "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
+            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
                     "%2FMjAyNDAyMjNfMjkg%2FMDAxNzA4NjE1NTg1ODg5.ZFPHZ3Q2HzH7GcYA1_Jl0lsIdvAnzUF2h6Qd6bgDLHkg." +
                     "_7ffkgE45HXRVgX2Bywc3B320_tuatBww5y1hS4xjWQg.JPEG%2FIMG_5278.jpg&type=sc960_832",
             name = "대전 장인약과",
@@ -30,7 +32,7 @@ class ShoppingCartScreenTest {
         Product(
             id = 1L,
             imageUrl =
-                "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
+            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
                     "%2FMjAyNDAxMDVfNjYg%2FMDAxNzA0NDU0MTYwMTAx.4pxrLnIdvFp8KDGAnGkbl8zHo5Mcn0d-yD7pzToeiSsg." +
                     "lF4rd6908c0j_7kfxBr_u4MSdjq73RkhzKfRk7Z6VUMg.JPEG.rbxod123%2F1704454160034.jpg&type=sc960_832",
             name = "라라스윗 바닐라",
@@ -39,15 +41,21 @@ class ShoppingCartScreenTest {
 
     @Before
     fun setUp() {
-        DatabaseShoppingCartRepository.removeProduct(product = productA)
-        DatabaseShoppingCartRepository.removeProduct(product = productB)
-
-        DatabaseShoppingCartRepository.addProduct(product = productA)
-        DatabaseShoppingCartRepository.addProduct(product = productA)
-        DatabaseShoppingCartRepository.addProduct(product = productB)
-
         composeTestRule.setContent {
-            ShoppingCartScreen(navigateToBack = {})
+            ShoppingCartScreen(
+                shoppingCartProducts = listOf(
+                    ShoppingCartProduct(
+                        id = 0L,
+                        product = productA,
+                        quantity = 2
+                    ),
+                    ShoppingCartProduct(
+                        id = 1L,
+                        product = productB,
+                        quantity = 1
+                    ),
+                ),
+                navigateToBack = {})
         }
     }
 
@@ -55,7 +63,7 @@ class ShoppingCartScreenTest {
     fun 담긴_상품_가격의_총합이_노출된다() {
         composeTestRule
             .onNodeWithText("주문하기(39,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -64,11 +72,11 @@ class ShoppingCartScreenTest {
             .performClick()
 
         composeTestRule.onNodeWithText(productA.name)
-            .assertDoesNotExist()
+            .isNotDisplayed()
 
         composeTestRule
             .onNodeWithText("주문하기(15,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -78,11 +86,11 @@ class ShoppingCartScreenTest {
 
         composeTestRule
             .onNodeWithText("36,000원")
-            .assertExists()
+            .isDisplayed()
 
         composeTestRule
             .onNodeWithText("주문하기(51,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -92,11 +100,11 @@ class ShoppingCartScreenTest {
 
         composeTestRule
             .onNodeWithText("12,000원")
-            .assertExists()
+            .isDisplayed()
 
         composeTestRule
             .onNodeWithText("주문하기(27,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -107,10 +115,10 @@ class ShoppingCartScreenTest {
             .performClick()
 
         composeTestRule.onNodeWithText(productA.name)
-            .assertDoesNotExist()
+            .isNotDisplayed()
 
         composeTestRule
             .onNodeWithText("주문하기(15,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 }

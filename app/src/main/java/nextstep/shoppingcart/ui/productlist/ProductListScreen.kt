@@ -37,17 +37,10 @@ import nextstep.signup.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductListScreen(
+    productItems: List<ProductUiModel>,
     navigateToProductDetail: (Long) -> Unit,
     navigateToShoppingCart: () -> Unit,
 ) {
-    val productItems: List<ProductUiModel> =
-        DatabaseProductRepository.products.map { product ->
-            ProductUiModel(
-                product = product,
-                quantity = DatabaseShoppingCartRepository.findQuantityByProduct(product),
-            )
-        }
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -94,9 +87,9 @@ fun ProductListScreen(
                         )
                     },
                     modifier =
-                        Modifier.clickable {
-                            navigateToProductDetail(productItem.product.id)
-                        },
+                    Modifier.clickable {
+                        navigateToProductDetail(productItem.product.id)
+                    },
                 )
             }
         }
@@ -122,6 +115,11 @@ private fun handleProductListAction(
 @Preview(showBackground = true)
 private fun ProductListScreenPreView() {
     ShoppingCartTheme {
-        ProductListScreen(navigateToProductDetail = {}, navigateToShoppingCart = {})
+        ProductListScreen(productItems = DatabaseProductRepository.products.map { product ->
+            ProductUiModel(
+                product = product,
+                quantity = DatabaseShoppingCartRepository.findQuantityByProduct(product),
+            )
+        }, navigateToProductDetail = {}, navigateToShoppingCart = {})
     }
 }
