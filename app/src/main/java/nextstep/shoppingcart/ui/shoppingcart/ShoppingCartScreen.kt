@@ -40,7 +40,7 @@ import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct
 import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
 import nextstep.shoppingcart.ui.component.ProductImage
-import nextstep.shoppingcart.ui.component.QuantityControl
+import nextstep.shoppingcart.ui.component.QuantityControlButton
 import nextstep.shoppingcart.ui.component.RectangleButton
 import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartAction.AddProduct
 import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartAction.DecreaseProductQuantity
@@ -207,7 +207,7 @@ private fun ShoppingCartItem(
                     fontSize = 16.sp,
                 )
 
-                QuantityControl(
+                QuantityControlButton(
                     quantity = shoppingCartProduct.quantity,
                     minusQuantity = { action(DecreaseProductQuantity(product = shoppingCartProduct.product)) },
                     plusQuantity = { action(AddProduct(product = shoppingCartProduct.product)) },

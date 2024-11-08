@@ -19,7 +19,7 @@ import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
 @Composable
-fun QuantityControl(
+fun QuantityControlButton(
     quantity: Int,
     minusQuantity: () -> Unit,
     plusQuantity: () -> Unit,
@@ -57,7 +57,7 @@ fun QuantityControl(
 @Preview(showBackground = true)
 private fun QuantityAdjusterPreview() {
     ShoppingCartTheme {
-        QuantityControl(
+        QuantityControlButton(
             quantity = 1,
             minusQuantity = {},
             plusQuantity = {},

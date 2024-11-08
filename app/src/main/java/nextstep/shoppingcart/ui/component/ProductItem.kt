@@ -53,7 +53,7 @@ fun ProductItem(
             )
 
             if (item.quantity > 0) {
-                QuantityControl(
+                QuantityControlButton(
                     quantity = item.quantity,
                     minusQuantity = { action(DecreaseProductQuantity(product = item.product)) },
                     plusQuantity = { action(AddProduct(product = item.product)) },
