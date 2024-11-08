@@ -52,7 +52,7 @@ import nextstep.signup.R
 @Composable
 fun ShoppingCartScreen(
     shoppingCartProducts: List<ShoppingCartProduct>,
-    navigateToBack: () -> Unit
+    navigateToBack: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -71,9 +71,9 @@ fun ShoppingCartScreen(
     ) { contentPadding ->
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(contentPadding),
+                Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             LazyColumn(
@@ -103,14 +103,14 @@ fun ShoppingCartScreen(
                     }
                 },
                 text =
-                stringResource(
-                    R.string.order_price,
-                    ShoppingCartRepositoryImpl.totalPrice,
-                ),
+                    stringResource(
+                        R.string.order_price,
+                        ShoppingCartRepositoryImpl.totalPrice,
+                    ),
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .height(54.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .height(54.dp),
                 enabled = shoppingCartProducts.isNotEmpty(),
             )
         }
@@ -139,7 +139,8 @@ private fun ShoppingCartScreenPreview() {
     ShoppingCartTheme {
         ShoppingCartScreen(
             shoppingCartProducts = ShoppingCartRepositoryImpl.shoppingCartProducts,
-            navigateToBack = {})
+            navigateToBack = {},
+        )
     }
 }
 
@@ -150,17 +151,17 @@ private fun ShoppingCartItem(
 ) {
     OutlinedCard(
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 18.dp, vertical = 16.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 16.dp),
         shape = RoundedCornerShape(4.dp),
         border = BorderStroke(1.dp, Gray10),
     ) {
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(start = 18.dp, end = 18.dp, top = 18.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 18.dp, end = 18.dp, top = 18.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -185,14 +186,14 @@ private fun ShoppingCartItem(
 
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(
-                    start = 18.dp,
-                    end = 18.dp,
-                    top = 6.dp,
-                    bottom = 18.dp,
-                ),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = 18.dp,
+                        end = 18.dp,
+                        top = 6.dp,
+                        bottom = 18.dp,
+                    ),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             ProductImage(
@@ -205,8 +206,8 @@ private fun ShoppingCartItem(
                 Text(
                     text = stringResource(R.string.price_format, shoppingCartProduct.totalPrice),
                     modifier =
-                    Modifier
-                        .align(Alignment.End),
+                        Modifier
+                            .align(Alignment.End),
                     fontSize = 16.sp,
                 )
 
@@ -227,19 +228,19 @@ private fun ShoppingCartItemPreview() {
     ShoppingCartTheme {
         ShoppingCartItem(
             shoppingCartProduct =
-            ShoppingCartProduct(
-                id = 0L,
-                Product(
+                ShoppingCartProduct(
                     id = 0L,
-                    imageUrl =
-                    "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
-                            "%2FMjAyNDAyMjNfMjkg%2FMDAxNzA4NjE1NTg1ODg5.ZFPHZ3Q2HzH7GcYA1_Jl0lsIdvAnzUF2h6Qd6bgDLHkg." +
-                            "_7ffkgE45HXRVgX2Bywc3B320_tuatBww5y1hS4xjWQg.JPEG%2FIMG_5278.jpg&type=sc960_832",
-                    name = "대전 장인약과",
-                    price = 12000,
+                    Product(
+                        id = 0L,
+                        imageUrl =
+                            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
+                                "%2FMjAyNDAyMjNfMjkg%2FMDAxNzA4NjE1NTg1ODg5.ZFPHZ3Q2HzH7GcYA1_Jl0lsIdvAnzUF2h6Qd6bgDLHkg." +
+                                "_7ffkgE45HXRVgX2Bywc3B320_tuatBww5y1hS4xjWQg.JPEG%2FIMG_5278.jpg&type=sc960_832",
+                        name = "대전 장인약과",
+                        price = 12000,
+                    ),
+                    quantity = 2,
                 ),
-                quantity = 2,
-            ),
             action = {},
         )
     }

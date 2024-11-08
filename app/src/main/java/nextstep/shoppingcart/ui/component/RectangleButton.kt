@@ -47,9 +47,9 @@ private fun RectangleButtonPreview() {
             onClick = {},
             text = "RectangleButton",
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .height(54.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .height(54.dp),
             enabled = true,
         )
     }

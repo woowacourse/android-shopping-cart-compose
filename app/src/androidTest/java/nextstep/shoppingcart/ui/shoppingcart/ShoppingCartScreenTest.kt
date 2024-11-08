@@ -21,7 +21,7 @@ class ShoppingCartScreenTest {
         Product(
             id = 0L,
             imageUrl =
-            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
+                "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
                     "%2FMjAyNDAyMjNfMjkg%2FMDAxNzA4NjE1NTg1ODg5.ZFPHZ3Q2HzH7GcYA1_Jl0lsIdvAnzUF2h6Qd6bgDLHkg." +
                     "_7ffkgE45HXRVgX2Bywc3B320_tuatBww5y1hS4xjWQg.JPEG%2FIMG_5278.jpg&type=sc960_832",
             name = "대전 장인약과",
@@ -32,7 +32,7 @@ class ShoppingCartScreenTest {
         Product(
             id = 1L,
             imageUrl =
-            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
+                "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net" +
                     "%2FMjAyNDAxMDVfNjYg%2FMDAxNzA0NDU0MTYwMTAx.4pxrLnIdvFp8KDGAnGkbl8zHo5Mcn0d-yD7pzToeiSsg." +
                     "lF4rd6908c0j_7kfxBr_u4MSdjq73RkhzKfRk7Z6VUMg.JPEG.rbxod123%2F1704454160034.jpg&type=sc960_832",
             name = "라라스윗 바닐라",
@@ -43,19 +43,21 @@ class ShoppingCartScreenTest {
     fun setUp() {
         composeTestRule.setContent {
             ShoppingCartScreen(
-                shoppingCartProducts = listOf(
-                    ShoppingCartProduct(
-                        id = 0L,
-                        product = productA,
-                        quantity = 2
+                shoppingCartProducts =
+                    listOf(
+                        ShoppingCartProduct(
+                            id = 0L,
+                            product = productA,
+                            quantity = 2,
+                        ),
+                        ShoppingCartProduct(
+                            id = 1L,
+                            product = productB,
+                            quantity = 1,
+                        ),
                     ),
-                    ShoppingCartProduct(
-                        id = 1L,
-                        product = productB,
-                        quantity = 1
-                    ),
-                ),
-                navigateToBack = {})
+                navigateToBack = {},
+            )
         }
     }
 

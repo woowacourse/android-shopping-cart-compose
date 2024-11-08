@@ -87,9 +87,9 @@ fun ProductListScreen(
                         )
                     },
                     modifier =
-                    Modifier.clickable {
-                        navigateToProductDetail(productItem.product.id)
-                    },
+                        Modifier.clickable {
+                            navigateToProductDetail(productItem.product.id)
+                        },
                 )
             }
         }
@@ -115,11 +115,16 @@ private fun handleProductListAction(
 @Preview(showBackground = true)
 private fun ProductListScreenPreView() {
     ShoppingCartTheme {
-        ProductListScreen(productItems = ProductRepositoryImpl.products.map { product ->
-            ProductUiModel(
-                product = product,
-                quantity = ShoppingCartRepositoryImpl.findQuantityByProduct(product),
-            )
-        }, navigateToProductDetail = {}, navigateToShoppingCart = {})
+        ProductListScreen(
+            productItems =
+                ProductRepositoryImpl.products.map { product ->
+                    ProductUiModel(
+                        product = product,
+                        quantity = ShoppingCartRepositoryImpl.findQuantityByProduct(product),
+                    )
+                },
+            navigateToProductDetail = {},
+            navigateToShoppingCart = {},
+        )
     }
 }

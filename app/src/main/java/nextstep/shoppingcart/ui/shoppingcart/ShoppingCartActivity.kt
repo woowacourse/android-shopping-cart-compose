@@ -17,7 +17,7 @@ class ShoppingCartActivity : ComponentActivity() {
             ShoppingCartTheme {
                 ShoppingCartScreen(
                     shoppingCartProducts = shoppingCartProducts,
-                    navigateToBack = ::navigateToBack
+                    navigateToBack = ::navigateToBack,
                 )
             }
         }
