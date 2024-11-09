@@ -20,8 +20,8 @@ import nextstep.signup.R
 @Composable
 fun BackNavigationTopAppBar(
     title: String,
-    modifier: Modifier = Modifier,
     navigateToBack: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     TopAppBar(title = {
         Text(

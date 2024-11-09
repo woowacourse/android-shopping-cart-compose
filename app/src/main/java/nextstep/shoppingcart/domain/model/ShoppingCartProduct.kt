@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ShoppingCartProduct(
+    val id: Long,
     val product: Product,
     val quantity: Int,
 ) : Parcelable {
@@ -15,11 +16,10 @@ data class ShoppingCartProduct(
     }
 
     fun minusQuantity(): ShoppingCartProduct {
-        return copy(quantity = (quantity - OFFSET_QUANTITY).coerceAtLeast(MIN_QUANTITY))
+        return copy(quantity = quantity - OFFSET_QUANTITY)
     }
 
     companion object {
-        const val OFFSET_QUANTITY = 1
-        const val MIN_QUANTITY = 1
+        private const val OFFSET_QUANTITY = 1
     }
 }

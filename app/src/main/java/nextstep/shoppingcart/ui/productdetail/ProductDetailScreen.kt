@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.data.repository.DefaultShoppingCartRepository
+import nextstep.shoppingcart.data.repository.ShoppingCartRepositoryImpl
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.ui.component.BackNavigationTopAppBar
 import nextstep.shoppingcart.ui.component.ProductImage
@@ -41,8 +41,8 @@ fun ProductDetailScreen(
         topBar = {
             BackNavigationTopAppBar(
                 title = stringResource(R.string.product_list),
-                modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
                 navigateToBack = navigateToBack,
+                modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
             )
         },
     ) { contentPadding ->
@@ -92,15 +92,15 @@ fun ProductDetailScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             RectangleButton(
+                onClick = {
+                    ShoppingCartRepositoryImpl.addProduct(product = product)
+                    navigateToShoppingCart()
+                },
                 text = stringResource(R.string.add_shopping_cart_product),
                 modifier =
                     Modifier
                         .fillMaxWidth()
                         .height(54.dp),
-                onClick = {
-                    DefaultShoppingCartRepository.addProduct(product = product)
-                    navigateToShoppingCart()
-                },
             )
         }
     }

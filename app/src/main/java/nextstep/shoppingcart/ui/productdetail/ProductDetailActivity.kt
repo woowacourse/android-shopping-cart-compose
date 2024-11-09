@@ -3,9 +3,10 @@ package nextstep.shoppingcart.ui.productdetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import nextstep.shoppingcart.domain.model.products
+import nextstep.shoppingcart.data.repository.ProductRepositoryImpl
 import nextstep.shoppingcart.ui.shoppingcart.ShoppingCartActivity
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
@@ -19,11 +20,13 @@ class ProductDetailActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ShoppingCartTheme {
-                val product =
-                    products.find { product ->
-                        product.id == productId
-                    }
-                        ?: throw IllegalArgumentException(resources.getString(R.string.product_not_found))
+                val product = ProductRepositoryImpl.findProductById(productId)
+
+                if (product == null) {
+                    finish()
+                    Toast.makeText(this, R.string.product_not_found, Toast.LENGTH_SHORT).show()
+                    return@ShoppingCartTheme
+                }
 
                 ProductDetailScreen(
                     product = product,

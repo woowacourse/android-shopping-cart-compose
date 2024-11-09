@@ -1,13 +1,18 @@
 package nextstep.shoppingcart.data.repository
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.domain.model.ShoppingCartProduct
-import nextstep.shoppingcart.domain.model.ShoppingCartProduct.Companion.MIN_QUANTITY
 import nextstep.shoppingcart.domain.repository.ShoppingCartRepository
 
-object DefaultShoppingCartRepository : ShoppingCartRepository {
-    private val _shoppingCartProducts: MutableList<ShoppingCartProduct> = mutableListOf()
-    val shoppingCartProducts: List<ShoppingCartProduct> get() = _shoppingCartProducts.toList()
+object ShoppingCartRepositoryImpl : ShoppingCartRepository {
+    private val _shoppingCartProducts: SnapshotStateList<ShoppingCartProduct> = mutableStateListOf()
+    val shoppingCartProducts: List<ShoppingCartProduct> get() = _shoppingCartProducts
+
+    val totalPrice: Int get() = _shoppingCartProducts.sumOf { shoppingCartProduct -> shoppingCartProduct.totalPrice }
+
+    private var currentId: Long = 0L
 
     override fun addProduct(product: Product) {
         val shoppingCartProduct =
@@ -16,7 +21,13 @@ object DefaultShoppingCartRepository : ShoppingCartRepository {
             }
 
         if (shoppingCartProduct == null) {
-            _shoppingCartProducts.add(ShoppingCartProduct(product, MIN_QUANTITY))
+            _shoppingCartProducts.add(
+                ShoppingCartProduct(
+                    id = currentId++,
+                    product = product,
+                    quantity = 1,
+                ),
+            )
         } else {
             val index = _shoppingCartProducts.indexOf(shoppingCartProduct)
             _shoppingCartProducts[index] = shoppingCartProduct.plusQuantity()
@@ -30,7 +41,7 @@ object DefaultShoppingCartRepository : ShoppingCartRepository {
             }
 
         if (shoppingCartProduct != null) {
-            if (shoppingCartProduct.quantity > MIN_QUANTITY) {
+            if (shoppingCartProduct.quantity > 1) {
                 val index = _shoppingCartProducts.indexOf(shoppingCartProduct)
                 _shoppingCartProducts[index] = shoppingCartProduct.minusQuantity()
             } else {
@@ -43,5 +54,14 @@ object DefaultShoppingCartRepository : ShoppingCartRepository {
         _shoppingCartProducts.removeIf { shoppingCartProduct ->
             shoppingCartProduct.product == product
         }
+    }
+
+    override fun clearProducts() {
+        _shoppingCartProducts.clear()
+    }
+
+    override fun findQuantityByProduct(product: Product): Int {
+        return _shoppingCartProducts.find { shoppingCartProduct -> shoppingCartProduct.product == product }?.quantity
+            ?: 0
     }
 }

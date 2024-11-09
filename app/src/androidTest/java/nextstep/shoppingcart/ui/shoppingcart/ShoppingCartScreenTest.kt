@@ -1,12 +1,14 @@
 package nextstep.shoppingcart.ui.shoppingcart
 
+import androidx.compose.ui.test.isDisplayed
+import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import nextstep.shoppingcart.data.repository.DefaultShoppingCartRepository
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.domain.model.ShoppingCartProduct
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -39,15 +41,23 @@ class ShoppingCartScreenTest {
 
     @Before
     fun setUp() {
-        DefaultShoppingCartRepository.removeProduct(product = productA)
-        DefaultShoppingCartRepository.removeProduct(product = productB)
-
-        DefaultShoppingCartRepository.addProduct(product = productA)
-        DefaultShoppingCartRepository.addProduct(product = productA)
-        DefaultShoppingCartRepository.addProduct(product = productB)
-
         composeTestRule.setContent {
-            ShoppingCartScreen(navigateToBack = {})
+            ShoppingCartScreen(
+                shoppingCartProducts =
+                    listOf(
+                        ShoppingCartProduct(
+                            id = 0L,
+                            product = productA,
+                            quantity = 2,
+                        ),
+                        ShoppingCartProduct(
+                            id = 1L,
+                            product = productB,
+                            quantity = 1,
+                        ),
+                    ),
+                navigateToBack = {},
+            )
         }
     }
 
@@ -55,7 +65,7 @@ class ShoppingCartScreenTest {
     fun 담긴_상품_가격의_총합이_노출된다() {
         composeTestRule
             .onNodeWithText("주문하기(39,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -64,11 +74,11 @@ class ShoppingCartScreenTest {
             .performClick()
 
         composeTestRule.onNodeWithText(productA.name)
-            .assertDoesNotExist()
+            .isNotDisplayed()
 
         composeTestRule
             .onNodeWithText("주문하기(15,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -78,11 +88,11 @@ class ShoppingCartScreenTest {
 
         composeTestRule
             .onNodeWithText("36,000원")
-            .assertExists()
+            .isDisplayed()
 
         composeTestRule
             .onNodeWithText("주문하기(51,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -92,11 +102,11 @@ class ShoppingCartScreenTest {
 
         composeTestRule
             .onNodeWithText("12,000원")
-            .assertExists()
+            .isDisplayed()
 
         composeTestRule
             .onNodeWithText("주문하기(27,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -107,10 +117,10 @@ class ShoppingCartScreenTest {
             .performClick()
 
         composeTestRule.onNodeWithText(productA.name)
-            .assertDoesNotExist()
+            .isNotDisplayed()
 
         composeTestRule
             .onNodeWithText("주문하기(15,000원)")
-            .assertExists()
+            .isDisplayed()
     }
 }
