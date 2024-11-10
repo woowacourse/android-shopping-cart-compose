@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,91 +25,92 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nextstep.shoppingcart.domain.model.Price
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.signup.R
 
 @Composable
 fun DetailLayout(
     navigation: () -> Unit = {},
     action: () -> Unit = {},
     product: Product,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
         bottomBar = {
             Box(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .background(Color(0xFF2196F3))
-                        .padding(16.dp)
-                        .clickable { action() },
-                contentAlignment = Alignment.Center,
+                Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFF2196F3))
+                    .padding(16.dp)
+                    .clickable { action() },
+                contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "장바구니 담기",
+                    text = stringResource(R.string.add_to_cart),
                     fontSize = 20.sp,
                     style =
-                        TextStyle(
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                        ),
+                    TextStyle(
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
                 )
             }
-        },
+        }
     ) { innerPadding ->
         Column(modifier = modifier.padding(innerPadding)) {
             TopBarWithNavigation(
-                name = "상품 상세",
+                name = stringResource(R.string.title_product_detail),
                 navigation = { navigation() },
-                modifier = modifier,
+                modifier = modifier
             )
             AsyncImage(
                 model = product.imageUrl,
                 contentDescription = product.name,
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
             )
             Text(
                 text = product.name,
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(18.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(18.dp),
                 style =
-                    TextStyle(
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                    ),
+                TextStyle(
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
             )
 
             Divider(
                 color = Color.Gray,
                 thickness = 1.dp,
                 modifier =
-                    Modifier
-                        .fillMaxWidth(),
+                Modifier
+                    .fillMaxWidth()
             )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "금액",
+                    text = stringResource(R.string.price),
                     fontSize = 20.sp,
                     modifier =
-                        Modifier
-                            .padding(18.dp)
-                            .align(Alignment.CenterVertically),
+                    Modifier
+                        .padding(18.dp)
+                        .align(Alignment.CenterVertically)
                 )
                 Text(
                     text = Price(product.price).format(),
                     fontSize = 20.sp,
                     modifier =
-                        Modifier
-                            .padding(18.dp)
-                            .align(Alignment.CenterVertically),
+                    Modifier
+                        .padding(18.dp)
+                        .align(Alignment.CenterVertically)
                 )
             }
         }
@@ -117,6 +119,6 @@ fun DetailLayout(
 
 @Composable
 @Preview(showBackground = true)
-fun DetailLayoutPreview() {
+private fun DetailLayoutPreview() {
     DetailLayout(product = Product.NULL_PRODUCT)
 }

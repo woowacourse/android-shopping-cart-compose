@@ -1,7 +1,6 @@
 package nextstep.shoppingcart.presentation.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
@@ -14,18 +13,19 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import nextstep.signup.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBarWithAction(
-    name: String = "상품목록",
+    name: String = stringResource(R.string.title_product_list),
     action: () -> Unit = {},
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column {
         CenterAlignedTopAppBar(
@@ -33,10 +33,10 @@ fun TopBarWithAction(
                 Text(
                     text = name,
                     style =
-                        TextStyle(
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold,
-                        ),
+                    TextStyle(
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 )
             },
             modifier = modifier,
@@ -44,10 +44,10 @@ fun TopBarWithAction(
                 IconButton(onClick = { action() }) {
                     Icon(
                         imageVector = Icons.Filled.ShoppingCart,
-                        contentDescription = "Shopping Cart",
+                        contentDescription = "Shopping Cart"
                     )
                 }
-            },
+            }
         )
     }
 }
@@ -57,7 +57,7 @@ fun TopBarWithAction(
 fun TopBarWithNavigation(
     name: String = "상품 상세",
     navigation: () -> Unit = {},
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column {
         TopAppBar(
@@ -65,30 +65,30 @@ fun TopBarWithNavigation(
                 Text(
                     text = name,
                     style =
-                        TextStyle(
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold,
-                        ),
+                    TextStyle(
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 )
             },
             modifier = modifier,
             navigationIcon = {
                 IconButton(
-                    onClick = { navigation() },
+                    onClick = { navigation() }
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
+                        contentDescription = "Back"
                     )
                 }
-            },
+            }
         )
     }
 }
 
 @Preview
 @Composable
-fun BarLayoutPreview() {
+private fun BarLayoutPreview() {
     Column {
         TopBarWithAction()
         TopBarWithNavigation(name = "상품 상세")

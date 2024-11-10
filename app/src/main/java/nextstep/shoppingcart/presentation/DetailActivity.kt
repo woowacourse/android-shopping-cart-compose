@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import nextstep.shoppingcart.data.CachedProductDataSource
 import nextstep.shoppingcart.data.CachedProductRepository
+import nextstep.shoppingcart.data.Cart
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.presentation.components.DetailLayout
 import nextstep.shoppingcart.presentation.ui.theme.AndroidshoppingcartTheme
@@ -14,12 +15,13 @@ import nextstep.shoppingcart.presentation.ui.theme.AndroidshoppingcartTheme
 class DetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val product = fetchProduct()
         setContent {
             AndroidshoppingcartTheme {
                 DetailLayout(
-                    product = fetchProduct(),
+                    product = product,
                     navigation = { navigateBack() },
-                    action = { navigateToCart() },
+                    action = { addToCart(product = product) }
                 )
             }
         }
@@ -33,6 +35,11 @@ class DetailActivity : ComponentActivity() {
         return repository.findProduct(productId.toLong())
     }
 
+    private fun addToCart(product: Product) {
+        Cart.addOne(product)
+        navigateToCart()
+    }
+
     private fun navigateToCart() {
         startActivity(CartActivity.createIntent(this))
     }
@@ -44,7 +51,7 @@ class DetailActivity : ComponentActivity() {
 
         fun createIntent(
             productId: String,
-            context: Context,
+            context: Context
         ): Intent =
             Intent(context, DetailActivity::class.java).apply {
                 putExtra(PRODUCT_ID, productId)
