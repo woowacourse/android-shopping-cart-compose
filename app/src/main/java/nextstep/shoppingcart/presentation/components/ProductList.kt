@@ -1,5 +1,6 @@
 package nextstep.shoppingcart.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,10 +29,10 @@ fun ProductList(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.padding(12.dp)
+        modifier = modifier,
     ) {
         items(items) { item ->
-            Item(
+            ProductItem(
                 product = item,
                 onItemClick = onItemClick
             )
@@ -41,45 +41,43 @@ fun ProductList(
 }
 
 @Composable
-fun Item(
+fun ProductItem(
     product: Product,
-    onItemClick: (Long) -> Unit
+    onItemClick: (Long) -> Unit,
 ) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        onClick = { onItemClick(product.id) }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onItemClick(product.id) }
+            .padding(top = 20.dp, start = 6.dp, end = 6.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(top = 20.dp, start = 6.dp, end = 6.dp)
-        ) {
-            AsyncImage(
-                model = product.imageUrl,
-                contentDescription = product.name,
-                modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
+        AsyncImage(
+            model = product.imageUrl,
+            contentDescription = product.name,
+            modifier =
+            Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+        )
+        Text(
+            text = product.name,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(top = 8.dp),
+            style =
+            TextStyle(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
             )
-            Text(
-                text = product.name,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(top = 8.dp),
-                style =
-                TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            )
-            Text(
-                text = Price(product.price).format(),
-                style =
-                TextStyle(
-                    fontSize = 16.sp
-                ),
-                modifier = Modifier.padding(top = 2.dp)
-            )
-        }
+        )
+        Text(
+            text = Price(product.price).format(),
+            style =
+            TextStyle(
+                fontSize = 16.sp
+            ),
+            modifier = Modifier.padding(top = 2.dp)
+        )
     }
 }
 

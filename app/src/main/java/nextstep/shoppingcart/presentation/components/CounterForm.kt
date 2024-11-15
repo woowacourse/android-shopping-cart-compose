@@ -23,7 +23,10 @@ fun CounterForm(
     onDecrease: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+    ) {
         Box(
             modifier =
             Modifier

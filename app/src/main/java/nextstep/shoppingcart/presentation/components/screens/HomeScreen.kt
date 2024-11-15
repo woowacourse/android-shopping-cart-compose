@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.presentation.components
+package nextstep.shoppingcart.presentation.components.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -7,9 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.presentation.components.ProductList
+import nextstep.shoppingcart.presentation.components.topbars.TopBarWithAction
 
 @Composable
-fun ListLayout(
+fun HomeScreen(
     products: List<Product>,
     action: () -> Unit = {},
     onItemClick: (Long) -> Unit = {},
@@ -29,7 +31,7 @@ fun ListLayout(
 
 @Composable
 @Preview(showBackground = true)
-private fun ListLayoutPreview() {
+private fun HomeScreenPreview() {
     val products =
         listOf(
             Product(
@@ -52,5 +54,5 @@ private fun ListLayoutPreview() {
             )
         )
 
-    ListLayout(products = products)
+    HomeScreen(products = products)
 }

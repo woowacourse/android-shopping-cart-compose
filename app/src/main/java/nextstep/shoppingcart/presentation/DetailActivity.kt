@@ -9,7 +9,7 @@ import nextstep.shoppingcart.data.CachedProductDataSource
 import nextstep.shoppingcart.data.CachedProductRepository
 import nextstep.shoppingcart.data.Cart
 import nextstep.shoppingcart.domain.model.Product
-import nextstep.shoppingcart.presentation.components.DetailLayout
+import nextstep.shoppingcart.presentation.components.screens.DetailScreen
 import nextstep.shoppingcart.presentation.ui.theme.AndroidshoppingcartTheme
 
 class DetailActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class DetailActivity : ComponentActivity() {
         val product = fetchProduct()
         setContent {
             AndroidshoppingcartTheme {
-                DetailLayout(
+                DetailScreen(
                     product = product,
                     navigation = { navigateBack() },
                     action = { addToCart(product = product) }

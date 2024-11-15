@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import nextstep.shoppingcart.data.CachedProductDataSource
 import nextstep.shoppingcart.data.CachedProductRepository
-import nextstep.shoppingcart.presentation.components.ListLayout
+import nextstep.shoppingcart.presentation.components.screens.HomeScreen
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 
 class HomeActivity : ComponentActivity() {
@@ -15,7 +15,7 @@ class HomeActivity : ComponentActivity() {
 
         setContent {
             ShoppingCartTheme {
-                ListLayout(
+                HomeScreen(
                     products = repository.fetchProducts(),
                     action = { navigateToCart() },
                     onItemClick = { productId -> navigateToDetail(productId) }

@@ -15,20 +15,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import nextstep.shoppingcart.data.Cart
 import nextstep.shoppingcart.domain.model.CartItem
-import nextstep.shoppingcart.presentation.components.CartLayout
+import nextstep.shoppingcart.presentation.components.screens.CartScreen
 import nextstep.shoppingcart.presentation.ui.theme.AndroidshoppingcartTheme
 
 class CartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            var cart by remember { mutableStateOf(Cart) }
             var cartItems by remember { mutableStateOf(Cart.items) }
             AndroidshoppingcartTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CartLayout(
+                    CartScreen(
                         navigation = { finish() },
                         modifier = Modifier.padding(innerPadding),
                         cartItems = cartItems,
+                        cart = cart,
                         onIncrease = {
                             onIncrease(it)
                             cartItems = Cart.items

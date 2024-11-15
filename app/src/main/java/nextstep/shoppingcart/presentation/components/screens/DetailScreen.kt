@@ -1,9 +1,8 @@
-package nextstep.shoppingcart.presentation.components
+package nextstep.shoppingcart.presentation.components.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -25,36 +24,29 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nextstep.shoppingcart.domain.model.Price
 import nextstep.shoppingcart.domain.model.Product
+import nextstep.shoppingcart.presentation.components.BottomBar
+import nextstep.shoppingcart.presentation.components.topbars.TopBarWithNavigation
+import nextstep.shoppingcart.ui.theme.Blue50
 import nextstep.signup.R
 
 @Composable
-fun DetailLayout(
+fun DetailScreen(
     navigation: () -> Unit = {},
     action: () -> Unit = {},
     product: Product,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
+        modifier = modifier,
         bottomBar = {
-            Box(
-                modifier =
-                Modifier
+            BottomBar(
+                text = stringResource(R.string.add_to_cart),
+                modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0xFF2196F3))
+                    .background(Blue50)
                     .padding(16.dp)
-                    .clickable { action() },
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.add_to_cart),
-                    fontSize = 20.sp,
-                    style =
-                    TextStyle(
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
-                    )
-                )
-            }
+                    .clickable { action() }
+            )
         }
     ) { innerPadding ->
         Column(modifier = modifier.padding(innerPadding)) {
@@ -120,5 +112,5 @@ fun DetailLayout(
 @Composable
 @Preview(showBackground = true)
 private fun DetailLayoutPreview() {
-    DetailLayout(product = Product.NULL_PRODUCT)
+    DetailScreen(product = Product.NULL_PRODUCT)
 }

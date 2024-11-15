@@ -1,13 +1,10 @@
 package nextstep.shoppingcart.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,13 +16,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -36,64 +31,36 @@ import coil.compose.AsyncImage
 import nextstep.shoppingcart.domain.model.CartItem
 import nextstep.shoppingcart.domain.model.Price
 import nextstep.shoppingcart.domain.model.Product
-import nextstep.signup.R
 
 @Composable
-fun ShoppingCartScreen(
+fun CartItemList(
     items: List<CartItem> = emptyList(),
     onIncrease: (CartItem) -> Unit = {},
     onDecrease: (CartItem) -> Unit = {},
     onClear: (CartItem) -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    val totalPrice = items.sumOf { it.product.price * it.count }
-
-    Scaffold(
-        bottomBar = {
-            Box(
-                modifier =
-                Modifier
+    LazyColumn(
+        modifier = modifier
+    ) {
+        items(items) { item ->
+            CartItem(
+                item = item,
+                onIncrease = onIncrease,
+                onDecrease = onDecrease,
+                onClear = onClear,
+                modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0xFF2196F3))
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.order, Price(totalPrice).format()),
-                    fontSize = 20.sp,
-                    style =
-                    TextStyle(
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
-                    )
-                )
-            }
-        }
-    ) { innerPadding ->
-        Column(
-            modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            LazyColumn {
-                items(items) { item ->
-                    CartItemView(
-                        item = item,
-                        onIncrease = onIncrease,
-                        onDecrease = onDecrease,
-                        onClear = onClear
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.weight(1f))
+                    .padding(8.dp)
+                    .border(1.dp, Color.Gray, shape = RoundedCornerShape(4.dp)),
+            )
         }
     }
 }
 
+
 @Composable
-fun CartItemView(
+fun CartItem(
     item: CartItem,
     onIncrease: (CartItem) -> Unit = {},
     onDecrease: (CartItem) -> Unit = {},
@@ -101,11 +68,7 @@ fun CartItemView(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .border(1.dp, Color.Gray, shape = RoundedCornerShape(4.dp)),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -191,5 +154,5 @@ private fun ShoppingCartPreview() {
                 count = 2
             )
         )
-    ShoppingCartScreen(items)
+    CartItemList(items)
 }
