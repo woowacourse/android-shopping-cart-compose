@@ -17,6 +17,7 @@ import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.presentation.components.BottomBar
 import nextstep.shoppingcart.presentation.components.CartItemList
 import nextstep.shoppingcart.presentation.components.topbars.TopBarWithNavigation
+import nextstep.shoppingcart.presentation.ui.theme.AndroidshoppingcartTheme
 import nextstep.shoppingcart.ui.theme.Blue50
 import nextstep.signup.R
 
@@ -31,36 +32,37 @@ fun CartScreen(
     modifier: Modifier = Modifier,
 ) {
     val totalPrice = cartItems.sumOf { it.product.price * it.count }
-
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopBarWithNavigation(
-                name = stringResource(R.string.title_shopping_cart),
-                navigation = navigation,
-            )
-        },
-        bottomBar = {
-            BottomBar(
-                text = stringResource(R.string.order, Price(totalPrice).format()),
-                modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .background(Blue50)
-                    .padding(16.dp),
+    AndroidshoppingcartTheme {
+        Scaffold(
+            modifier = modifier,
+            topBar = {
+                TopBarWithNavigation(
+                    name = stringResource(R.string.title_shopping_cart),
+                    navigation = navigation,
                 )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding),
-        ) {
-            CartItemList(
-                items = cartItems,
-                onIncrease = onIncrease,
-                onDecrease = onDecrease,
-                onClear = onClear,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            },
+            bottomBar = {
+                BottomBar(
+                    text = stringResource(R.string.order, Price(totalPrice).format()),
+                    modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .background(Blue50)
+                        .padding(16.dp),
+                )
+            }
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier.padding(innerPadding),
+            ) {
+                CartItemList(
+                    items = cartItems,
+                    onIncrease = onIncrease,
+                    onDecrease = onDecrease,
+                    onClear = onClear,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
         }
     }
 }
@@ -71,6 +73,7 @@ private fun CartScreenPreview() {
     val items =
         listOf(
             CartItem(
+                id = 0L,
                 Product(
                     id = 1L,
                     name = "[든든] 동원 스위트콘",
@@ -80,6 +83,7 @@ private fun CartScreenPreview() {
                 count = 1,
             ),
             CartItem(
+                id = 1L,
                 Product(
                     id = 2L,
                     name = "PET보틀-원형(500ml)",

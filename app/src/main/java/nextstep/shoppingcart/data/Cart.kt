@@ -9,16 +9,27 @@ object Cart {
 
     val totalPrice: Int get() = _items.sumOf { it.totalPrice }
 
+    private var maxCartItemId: Long = 0L
+
     fun addOne(product: Product): List<CartItem> {
         val item = _items.find { it.product == product }
         if (item == null) {
-            _items.add(CartItem(product, 1))
+            _items.add(
+                CartItem(
+                    id = fetchMaxCartItemId(),
+                    product = product,
+                    count = 1,
+                )
+            )
+
         } else {
             val index = _items.indexOf(item)
             _items[index] = item.copy(count = item.count + 1)
         }
         return items
     }
+
+    private fun fetchMaxCartItemId(): Long = maxCartItemId++
 
     fun removeOne(product: Product): List<CartItem> {
         _items

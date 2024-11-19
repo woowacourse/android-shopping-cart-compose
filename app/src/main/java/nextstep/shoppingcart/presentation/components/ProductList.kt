@@ -17,7 +17,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import nextstep.shoppingcart.domain.model.Price
 import nextstep.shoppingcart.domain.model.Product
 
@@ -41,7 +40,7 @@ fun ProductList(
 }
 
 @Composable
-fun ProductItem(
+private fun ProductItem(
     product: Product,
     onItemClick: (Long) -> Unit,
 ) {
@@ -51,13 +50,12 @@ fun ProductItem(
             .clickable { onItemClick(product.id) }
             .padding(top = 20.dp, start = 6.dp, end = 6.dp)
     ) {
-        AsyncImage(
-            model = product.imageUrl,
+        ProductImage(
+            imageUrl = product.imageUrl,
             contentDescription = product.name,
-            modifier =
-            Modifier
+            modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f)
+                .aspectRatio(1f),
         )
         Text(
             text = product.name,

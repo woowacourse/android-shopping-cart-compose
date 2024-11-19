@@ -27,7 +27,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import nextstep.shoppingcart.domain.model.CartItem
 import nextstep.shoppingcart.domain.model.Price
 import nextstep.shoppingcart.domain.model.Product
@@ -41,9 +40,14 @@ fun CartItemList(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
     ) {
-        items(items) { item ->
+        items(
+            items = items,
+            key = { item ->
+                item.id
+            }
+        ) { item ->
             CartItem(
                 item = item,
                 onIncrease = onIncrease,
@@ -60,7 +64,7 @@ fun CartItemList(
 
 
 @Composable
-fun CartItem(
+private fun CartItem(
     item: CartItem,
     onIncrease: (CartItem) -> Unit = {},
     onDecrease: (CartItem) -> Unit = {},
@@ -102,11 +106,10 @@ fun CartItem(
                 }
             }
             Row {
-                AsyncImage(
-                    model = item.product.imageUrl,
+                ProductImage(
+                    imageUrl = item.product.imageUrl,
                     contentDescription = item.product.name,
-                    modifier =
-                    Modifier
+                    modifier = Modifier
                         .width(136.dp)
                         .height(84.dp)
                 )
@@ -136,6 +139,7 @@ private fun ShoppingCartPreview() {
     val items =
         listOf(
             CartItem(
+                id = 0L,
                 Product(
                     id = 1L,
                     name = "[든든] 동원 스위트콘",
@@ -145,6 +149,7 @@ private fun ShoppingCartPreview() {
                 count = 1
             ),
             CartItem(
+                id = 1L,
                 Product(
                     id = 2L,
                     name = "PET보틀-원형(500ml)",

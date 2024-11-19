@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import nextstep.shoppingcart.domain.model.Product
 import nextstep.shoppingcart.presentation.components.ProductList
 import nextstep.shoppingcart.presentation.components.topbars.TopBarWithAction
+import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 
 @Composable
 fun HomeScreen(
@@ -17,15 +18,17 @@ fun HomeScreen(
     onItemClick: (Long) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-    ) {
-        TopBarWithAction(modifier = Modifier, action = action)
-        ProductList(
-            items = products,
-            onItemClick = onItemClick,
-            modifier = Modifier.padding(top = 18.dp, start = 13.dp, end = 13.dp)
-        )
+    ShoppingCartTheme {
+        Column(
+            modifier = modifier
+        ) {
+            TopBarWithAction(modifier = Modifier, action = action)
+            ProductList(
+                items = products,
+                onItemClick = onItemClick,
+                modifier = Modifier.padding(top = 18.dp, start = 13.dp, end = 13.dp)
+            )
+        }
     }
 }
 
