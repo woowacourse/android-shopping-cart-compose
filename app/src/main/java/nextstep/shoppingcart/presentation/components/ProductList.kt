@@ -28,7 +28,7 @@ fun ProductList(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = modifier,
+        modifier = modifier
     ) {
         items(items) { item ->
             ProductItem(
@@ -42,7 +42,7 @@ fun ProductList(
 @Composable
 private fun ProductItem(
     product: Product,
-    onItemClick: (Long) -> Unit,
+    onItemClick: (Long) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -55,7 +55,7 @@ private fun ProductItem(
             contentDescription = product.name,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f),
+                .aspectRatio(1f)
         )
         Text(
             text = product.name,

@@ -38,7 +38,7 @@ fun CartItemList(
     onIncrease: (CartItem) -> Unit = {},
     onDecrease: (CartItem) -> Unit = {},
     onClear: (CartItem) -> Unit = {},
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier,
@@ -58,12 +58,11 @@ fun CartItemList(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .border(1.dp, Color.Gray, shape = RoundedCornerShape(4.dp)),
+                    .border(1.dp, Color.Gray, shape = RoundedCornerShape(4.dp))
             )
         }
     }
 }
-
 
 @Composable
 private fun CartItem(

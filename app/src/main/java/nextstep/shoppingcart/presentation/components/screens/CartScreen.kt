@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import nextstep.shoppingcart.data.Cart
 import nextstep.shoppingcart.domain.model.CartItem
 import nextstep.shoppingcart.domain.model.Price
 import nextstep.shoppingcart.domain.model.Product
@@ -29,7 +28,7 @@ fun CartScreen(
     onIncrease: (CartItem) -> Unit = {},
     onDecrease: (CartItem) -> Unit = {},
     onClear: (CartItem) -> Unit = {},
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     AndroidshoppingcartTheme {
         Scaffold(
@@ -37,7 +36,7 @@ fun CartScreen(
             topBar = {
                 TopBarWithNavigation(
                     name = stringResource(R.string.title_shopping_cart),
-                    navigation = navigation,
+                    navigation = navigation
                 )
             },
             bottomBar = {
@@ -47,19 +46,19 @@ fun CartScreen(
                     Modifier
                         .fillMaxWidth()
                         .background(Blue50)
-                        .padding(16.dp),
+                        .padding(16.dp)
                 )
             }
         ) { innerPadding ->
             Column(
-                modifier = Modifier.padding(innerPadding),
+                modifier = Modifier.padding(innerPadding)
             ) {
                 CartItemList(
                     items = cartItems,
                     onIncrease = onIncrease,
                     onDecrease = onDecrease,
                     onClear = onClear,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }
@@ -77,9 +76,9 @@ private fun CartScreenPreview() {
                     id = 1L,
                     name = "[든든] 동원 스위트콘",
                     price = 42200,
-                    imageUrl = "https://thumbnail7",
+                    imageUrl = "https://thumbnail7"
                 ),
-                count = 1,
+                count = 1
             ),
             CartItem(
                 id = 1L,
@@ -87,10 +86,10 @@ private fun CartScreenPreview() {
                     id = 2L,
                     name = "PET보틀-원형(500ml)",
                     price = 84400,
-                    imageUrl = "",
+                    imageUrl = ""
                 ),
-                count = 2,
-            ),
+                count = 2
+            )
         )
     CartScreen(navigation = {}, cartItems = items, totalPrice = items.sumOf { it.product.price * it.count })
 }

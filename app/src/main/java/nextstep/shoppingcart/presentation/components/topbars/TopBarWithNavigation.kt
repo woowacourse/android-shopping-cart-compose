@@ -47,7 +47,6 @@ fun TopBarWithNavigation(
     )
 }
 
-
 @Preview
 @Composable
 private fun BarLayoutPreview() {

@@ -8,7 +8,8 @@ import coil.compose.AsyncImage
 @Composable
 fun ProductImage(
     imageUrl: String,
-    contentDescription: String,modifier: Modifier = Modifier
+    contentDescription: String,
+    modifier: Modifier = Modifier
 ) {
     AsyncImage(
         model = imageUrl,
