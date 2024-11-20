@@ -26,7 +26,7 @@ fun HomeScreen(
             ProductList(
                 items = products,
                 onItemClick = onItemClick,
-                modifier = Modifier.padding(top = 18.dp, start = 13.dp, end = 13.dp)
+                modifier = Modifier.padding(top = 8.dp, start = 13.dp, end = 13.dp)
             )
         }
     }

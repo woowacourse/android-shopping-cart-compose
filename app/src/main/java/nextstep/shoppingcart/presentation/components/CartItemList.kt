@@ -3,6 +3,7 @@ package nextstep.shoppingcart.presentation.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,6 +42,7 @@ fun CartItemList(
 ) {
     LazyColumn(
         modifier = modifier,
+        contentPadding = PaddingValues(50.dp)
     ) {
         items(
             items = items,

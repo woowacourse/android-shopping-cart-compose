@@ -25,13 +25,12 @@ import nextstep.signup.R
 fun CartScreen(
     navigation: () -> Unit,
     cartItems: List<CartItem>,
-    cart: Cart,
+    totalPrice: Int,
     onIncrease: (CartItem) -> Unit = {},
     onDecrease: (CartItem) -> Unit = {},
     onClear: (CartItem) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    val totalPrice = cartItems.sumOf { it.product.price * it.count }
     AndroidshoppingcartTheme {
         Scaffold(
             modifier = modifier,
@@ -93,5 +92,5 @@ private fun CartScreenPreview() {
                 count = 2,
             ),
         )
-    CartScreen(navigation = {}, cartItems = items, cart = Cart)
+    CartScreen(navigation = {}, cartItems = items, totalPrice = items.sumOf { it.product.price * it.count })
 }

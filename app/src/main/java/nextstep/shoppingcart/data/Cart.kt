@@ -1,52 +1,46 @@
 package nextstep.shoppingcart.data
 
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import nextstep.shoppingcart.domain.model.CartItem
 import nextstep.shoppingcart.domain.model.Product
 
 object Cart {
-    private val _items: MutableList<CartItem> = mutableListOf()
-    val items: List<CartItem> get() = _items.toList()
+    val items: SnapshotStateList<CartItem> = emptyList<CartItem>().toMutableStateList()
 
-    val totalPrice: Int get() = _items.sumOf { it.totalPrice }
+    val totalPrice = mutableIntStateOf(0)
 
-    private var maxCartItemId: Long = 0L
-
-    fun addOne(product: Product): List<CartItem> {
-        val item = _items.find { it.product == product }
-        if (item == null) {
-            _items.add(
-                CartItem(
-                    id = fetchMaxCartItemId(),
-                    product = product,
-                    count = 1,
-                )
-            )
-
+    fun addOne(product: Product) {
+        val item = items.find { it.product == product }
+        if (item != null) {
+            val index = items.indexOf(item)
+            items[index] = item.copy(count = item.count + 1)
         } else {
-            val index = _items.indexOf(item)
-            _items[index] = item.copy(count = item.count + 1)
+            items.add(CartItem(product = product, count = 1))
         }
-        return items
+        updateState()
     }
 
-    private fun fetchMaxCartItemId(): Long = maxCartItemId++
-
-    fun removeOne(product: Product): List<CartItem> {
-        _items
-            .find { it.product == product }
-            ?.let { item ->
-                if (item.count > 1) {
-                    val index = _items.indexOf(item)
-                    _items[index] = item.copy(count = item.count - 1)
-                } else {
-                    _items.remove(item)
-                }
+    fun removeOne(product: Product) {
+        val item = items.find { it.product == product }
+        if (item != null) {
+            if (item.count > 1) {
+                val index = items.indexOf(item)
+                items[index] = item.copy(count = item.count - 1)
+            } else {
+                items.remove(item)
             }
-        return items
+            updateState()
+        }
     }
 
-    fun removeAll(product: Product): List<CartItem> {
-        _items.removeAll { it.product == product }
-        return items
+    fun removeAll(product: Product) {
+        items.removeAll { it.product == product }
+        updateState()
+    }
+
+    private fun updateState() {
+        totalPrice.value = items.sumOf { it.product.price * it.count }
     }
 }
